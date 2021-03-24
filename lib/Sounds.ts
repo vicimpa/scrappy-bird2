@@ -11,6 +11,7 @@ export class Sound {
       this.#src = src
 
     this.#audio = new Audio(this.#src)
+    this.#audio.volume = 0.3
     this.#audio.preload = 'auto'
     this.#audio.controls = false
     this.#audio.onpause = () => {

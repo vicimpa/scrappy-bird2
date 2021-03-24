@@ -23,7 +23,7 @@ export class Pipe {
 
   padding = 60
   speed = 0
-  pipeSpeed = 2000
+  pipeSpeed = 1400
 
   constructor(private game: Game) {
     game.pipeContainer.appendChild(this.#elem)
