@@ -157,6 +157,7 @@ export class Game {
     if (this.work)
       return
 
+    this.last = performance.now()
     this.work = true
     this.loop()
   }
@@ -173,7 +174,8 @@ export class Game {
   }
 
   @bind()
-  loop(time = 0) {
+  loop() {
+    const time = performance.now()
     let delta = time - this.last
 
     this.last = time
@@ -221,12 +223,12 @@ export class Game {
 
     if(this.stage > 1) {
       let score = `Score: ${this.score}`
-      if(this.scoreElement.innerText != score)
-        this.scoreElement.innerText = score
+      if(this.scoreElement.innerHTML != score)
+        this.scoreElement.innerHTML = score
   
       let hiscore = `Best: ${this.best}`
-      if(this.hiscoreElement.innerText != hiscore)
-        this.hiscoreElement.innerText = hiscore
+      if(this.hiscoreElement.innerHTML != hiscore)
+        this.hiscoreElement.innerHTML = hiscore
     }
 
     if (this.stage >= 2 && this.anim)
