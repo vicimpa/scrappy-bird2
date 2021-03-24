@@ -80,6 +80,24 @@ export class Game {
     app.appendChild(this.#elem)
     this.readBackSpeed = this.width / this.backSpeed
     this.readRoadSpeed = this.width / this.roadSpeed
+
+    this.#elem.addEventListener('mousedown', (e) => {
+      e.preventDefault()
+
+      if(this.stage != 3)
+        this.click()
+
+      addEventListener('keydown', (e) => {
+        e.preventDefault()
+      
+        if(e.key == ' ' && this.stage != 3)
+          this.click()
+      
+        if(e.key == 'Enter' && this.stage == 3)
+          this.reset()
+      })
+    })
+
     this.reset()
   }
 
