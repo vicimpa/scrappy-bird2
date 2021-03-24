@@ -22,7 +22,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(png|wav|mp3)$/,
+        test: /\.(png|wav|mp3|ttf)$/,
         loader: 'url-loader'
       },
       {

@@ -131,6 +131,7 @@ export class Game {
     this.#bird.up = 0
     this.night = Math.random() > 0.5
     this.#bird.col = (Math.random() * 3) | 0
+    
 
     this.anim = true
     this.#bird.reset()
@@ -218,7 +219,7 @@ export class Game {
       }
     }
 
-    if(this.stage == 1) {
+    if(this.stage > 1) {
       let score = `Score: ${this.score}`
       if(this.scoreElement.innerText != score)
         this.scoreElement.innerText = score
