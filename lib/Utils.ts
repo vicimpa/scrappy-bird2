@@ -34,3 +34,9 @@ export function rand(min: number, max = 0) {
     return Math.floor(Math.random() * (min + 1));
   }
 }
+
+export function isTouchDevice() {
+  return ('ontouchstart' in window) ||
+    !!navigator.maxTouchPoints ||
+    !!navigator.msMaxTouchPoints
+}

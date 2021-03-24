@@ -2,7 +2,7 @@ import { Bird } from "~/lib/Bird";
 import { Debug } from "~/lib/Debug";
 import { create } from "~/lib/Dom";
 import { Pipe } from "~/lib/Pipe";
-import { bind, rand } from "~/lib/Utils";
+import { bind, rand, isTouchDevice } from "~/lib/Utils";
 import { Sound } from "./Sounds";
 
 export class Game {
@@ -85,10 +85,21 @@ export class Game {
     this.readBackSpeed = this.width / this.backSpeed
     this.readRoadSpeed = this.width / this.roadSpeed
 
-    this.#elem.addEventListener('mousedown', (e) => {
+    const touch = (e: TouchEvent) => {
       e.preventDefault()
 
       if(this.stage != 3)
+        this.click()
+    }
+
+    this.#pipe.addEventListener('touchstart', touch)
+    this.#road.addEventListener('touchstart', touch)
+    this.#start.addEventListener('touchstart', touch)
+
+    this.#elem.addEventListener('mousedown', (e) => {
+      e.preventDefault()
+
+      if(this.stage != 3 && !isTouchDevice())
         this.click()
 
       addEventListener('keydown', (e) => {
@@ -99,6 +110,13 @@ export class Game {
       
         if(e.key == 'Enter' && this.stage == 3)
           this.reset()
+      })
+
+      addEventListener('touchstart', (e) => {
+        e.preventDefault()
+
+        //if(this.stage != 3)
+          //this.click()
       })
     })
 
