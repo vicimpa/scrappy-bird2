@@ -1,0 +1,239 @@
+html, body
+  width: 100%
+  height: 100%
+
+  margin: 0
+  padding: 0
+
+$width: 144px
+$height: 256px
+
+$heightRoad: 56px
+$pipeWidth: 26px
+
+$startWidth: 57px
+$startHeight: 49px
+
+$pipeBgHeight: 160px
+$pipeHeight: 45px
+
+$birdWidth: 17px
+$birdHeight: 12px
+
+$birdSpriteWidth: $birdWidth * 3
+$birdSpriteHeigt: $birdHeight * 3
+
+$zoom: 2  
+
+$width: $width * $zoom
+$height: $height * $zoom
+
+$heightRoad: $heightRoad * $zoom
+$pipeWidth: $pipeWidth * $zoom
+
+$pipeHeight: $pipeHeight * $zoom
+$pipeBgHeight: $pipeBgHeight * $zoom
+
+$startWidth: $startWidth * $zoom
+$startHeight: $startHeight * $zoom
+
+$birdWidth: $birdWidth * $zoom
+$birdHeight: $birdHeight * $zoom
+
+$birdSpriteWidth: $birdSpriteWidth * $zoom
+$birdSpriteHeigt: $birdSpriteHeigt * $zoom
+
+@keyframes back-animate
+  0%
+    background-position: $width 0px
+
+  100%
+    background-position: 0px 0px
+
+@keyframes jumping
+  0%
+    transform: translateY(0) scale(1)
+  46%
+    transform: translateY(0) scale(1)
+  50%
+    transform: translateY(5px) scale(0.9)
+  52%
+    transform: translateY(0) scale(1)
+  100%
+    transform: translateY(0) scale(1)
+    
+
+.back
+  position: absolute
+
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+
+  margin: auto
+
+  width: $width
+  height: $height
+
+  overflow: hidden
+
+  background: url(/img/back.png)
+  background-size: $width $height
+
+  .start
+    position: absolute
+
+    width: $startWidth
+    height: $startHeight
+
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+
+    margin: auto
+
+    opacity: 0
+
+    background: url(/img/start.png)
+    background-size: $startWidth $startHeight
+
+    &.show
+      opacity: 1
+      transition-duration: 0.8s
+      transition-delay: 0.2s
+      animation: jumping 1s infinite
+
+  .end
+    position: absolute
+
+    width: $width - $width / 3
+    height: $height - $height / 3
+
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+
+    margin: auto
+
+    display: flex
+    flex-direction: column
+
+    padding: 20px
+
+    background-color: rgba(0,0,0,0.2)
+
+    justify-content: space-between
+
+    transform: translateY($height*1.5) scale(0.6)
+    transition-duration: 0.2s
+    z-index: 2
+
+    &.show
+      transition-delay: 0.3s
+      transition-duration: 0.8s
+      transform: translateY(0) scale(1)
+
+    button
+      cursor: pointer
+
+    p
+      color: #fff
+      text-align: center
+
+    .space
+      flex-grow: 1
+
+  .debug
+    position: absolute
+    top: 10px
+    left: 10px
+
+    font-size: 10px
+    background-color: rgba(0,0,0,0.1)
+    padding: 5px 10px
+
+    p
+      margin: 0
+      color: #fff
+
+  &.night
+    background: url(/img/back-night.png)
+    background-size: $width $height
+
+  .road
+    background: url(/img/road.png)
+    background-size: $width $heightRoad
+    position: absolute
+
+    left: 0
+    right: 0
+    bottom: 0
+
+    width: $width
+    height: $heightRoad
+
+  &.anim
+    animation: back-animate 6s linear infinite
+
+    .road
+      animation: back-animate 3s linear infinite
+
+  .bird
+    position: absolute
+
+    top: 250px
+    left: -50px  
+
+    width: $birdWidth
+    height: $birdHeight
+
+    background: url(/img/bird.png)
+    background-size: $birdSpriteWidth $birdSpriteHeigt
+    background-position-y: $birdHeight*0
+
+    @for $var from 0 through 2
+      &[data-up="#{$var}"]
+        background-position-x: $birdWidth * $var * -1
+      &[data-col="#{$var}"]
+        background-position-y: $birdHeight * $var * -1
+    
+  .pane-container
+    width: $width
+    height: $height - $heightRoad
+    overflow: hidden
+
+    position: absolute
+
+    top: 0
+    left: 0
+    right: 0
+
+    .pipe
+      position: absolute
+      width: $pipeWidth
+      height: $pipeHeight
+
+      top: 240px
+      left: 200px
+
+      &::before, &::after
+        content: ' '
+        display: block
+        position: absolute
+        width: $pipeWidth
+        height: $pipeBgHeight
+        left: 0
+        right: 0
+
+      &::before
+        background: url(/img/pipe-top.png)
+        background-size: $pipeWidth $pipeBgHeight
+        bottom: 100%
+
+      &::after
+        background: url(/img/pipe-bottom.png)
+        background-size: $pipeWidth $pipeBgHeight
+        top: 100%
