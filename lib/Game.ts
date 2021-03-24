@@ -2,7 +2,7 @@ import { Bird } from "~/lib/Bird";
 import { Debug } from "~/lib/Debug";
 import { create } from "~/lib/Dom";
 import { Pipe } from "~/lib/Pipe";
-import { bind } from "~/lib/Utils";
+import { bind, rand } from "~/lib/Utils";
 import { Sound } from "./Sounds";
 
 export class Game {
@@ -71,8 +71,12 @@ export class Game {
     localStorage.setItem('flappy-bird-best', `${v}`)
   }
 
-  get night() { return this.classList.contains('night') }
-  set night(v) { this.classList[v ? 'add' : 'remove']('night') }
+
+  get col() { 
+    const b = +this.#elem.getAttribute('data-col')
+    return isNaN(b) ? 0 : b
+  }
+  set col(v) { this.#elem.setAttribute('data-col', `${v}`) }
 
   get classList() { return this.#elem.classList }
 
@@ -129,8 +133,8 @@ export class Game {
     this.stage = 0
     this.score = 0
     this.#bird.up = 0
-    this.night = Math.random() > 0.5
-    this.#bird.col = (Math.random() * 3) | 0
+    this.col = rand(0, 1)
+    this.#bird.col = rand(0, 12)
     
 
     this.anim = true

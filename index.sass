@@ -27,7 +27,7 @@ $birdWidth: 17px
 $birdHeight: 12px
 
 $birdSpriteWidth: $birdWidth * 3
-$birdSpriteHeigt: $birdHeight * 3
+$birdSpriteHeigt: $birdHeight * 13
 
 $zoom: 2  
 
@@ -85,7 +85,11 @@ $birdSpriteHeigt: $birdSpriteHeigt * $zoom
   overflow: hidden
 
   background: url(/img/back.png)
-  background-size: $width $height
+  background-size: $width $height * 2
+
+  @for $var from 0 through 1
+    &[data-col="#{$var}"]
+      background-position-y: $height * $var * -1
 
   .start
     position: absolute
@@ -190,10 +194,6 @@ $birdSpriteHeigt: $birdSpriteHeigt * $zoom
       *
         font-weight: normal
 
-  &.night
-    background: url(/img/back-night.png)
-    background-size: $width $height
-
   .road
     background: url(/img/road.png)
     background-size: $width $heightRoad
@@ -228,6 +228,7 @@ $birdSpriteHeigt: $birdSpriteHeigt * $zoom
     @for $var from 0 through 2
       &[data-up="#{$var}"]
         background-position-x: $birdWidth * $var * -1
+    @for $var from 0 through 12
       &[data-col="#{$var}"]
         background-position-y: $birdHeight * $var * -1
     
@@ -251,6 +252,8 @@ $birdSpriteHeigt: $birdSpriteHeigt * $zoom
       left: 200px
 
       &::before, &::after
+        background: url(/img/pipe.png)
+        background-size: $pipeWidth * 2 $pipeBgHeight
         content: ' '
         display: block
         position: absolute
@@ -260,11 +263,9 @@ $birdSpriteHeigt: $birdSpriteHeigt * $zoom
         right: 0
 
       &::before
-        background: url(/img/pipe-top.png)
-        background-size: $pipeWidth $pipeBgHeight
         bottom: 100%
+        background-position-x: $pipeWidth*0
 
       &::after
-        background: url(/img/pipe-bottom.png)
-        background-size: $pipeWidth $pipeBgHeight
+        background-position-x: $pipeWidth*1
         top: 100%
