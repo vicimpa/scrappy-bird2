@@ -12,3 +12,8 @@ declare module "*.mp3" {
   const app: string
   export = app
 }
+
+declare type TSize = {
+  width: number
+  height: number
+}
