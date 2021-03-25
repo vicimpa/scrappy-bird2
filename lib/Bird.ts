@@ -3,6 +3,7 @@ import { Game } from "~/lib/Game";
 
 const { abs } = Math
 const PI5 = Math.PI / 70
+const PID = Math.PI / 2
 
 export class Bird {
   #elem = create('div',
@@ -68,7 +69,7 @@ export class Bird {
       this.up = upv
 
     if (stage == 0)
-      this.y = 200 + (abs(time % (upTime * 2) - upTime) / this.upTime) * 50
+      this.y = 200 + Math.cos(PID + time * 0.005) * 20
     
     if (stage == 1 || stage == 2) {
       const rotate = this.speed * 25 * PI5 - 10
