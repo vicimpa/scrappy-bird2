@@ -9,8 +9,8 @@ const config = {
     index: './index.ts'
   },
   output: {
-    path: join(__dirname, 'dist'),
-    publicPath: '/dist/',
+    path: join(__dirname),
+    publicPath: '/',
     filename: '[name].js'
   },
   resolve: {
