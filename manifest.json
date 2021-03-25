@@ -1,0 +1,15 @@
+{
+  "short_name": "ScrappyBird",
+  "name": "Scrappy Bird",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/?utm_source=homescreen",
+  "background_color": "#333333",
+  "theme_color": "#333333",
+  "display": "standalone"
+}

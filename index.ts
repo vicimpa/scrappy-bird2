@@ -7,12 +7,23 @@ game.start()
 function resize() {
   const { offsetWidth: width, offsetHeight: height } = game.elem
   const { offsetWidth, offsetHeight } = document.body
-  const scale = Math.min(offsetWidth / width, offsetHeight /height)
+  const scale = Math.min(offsetWidth / width, offsetHeight / height)
   game.elem.style.transform = `scale(${scale})`
 }
 
-window.onload = () => resize()
+window.addEventListener("load", () => {
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register("./servise.js", {
+        scope: "/",
+      })
+      .then(res => {
+        console.log(res.scope);
+      }, console.error);
+  }
+});
 
+window.onload = () => resize()
 window.onresize = () => resize()
 
 addEventListener('mousedown', (e) => {
