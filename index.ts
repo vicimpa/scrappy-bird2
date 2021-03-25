@@ -15,7 +15,7 @@ window.addEventListener("load", () => {
   if (navigator.serviceWorker) {
     navigator.serviceWorker
       .register("./servise.js", {
-        scope: "/",
+        scope: location.pathname
       })
       .then(res => {
         console.log(res.scope);
@@ -23,6 +23,7 @@ window.addEventListener("load", () => {
   }
 });
 
+screen.orientation.lock('portrait')
 window.onload = () => resize()
 window.onresize = () => resize()
 

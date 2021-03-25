@@ -3,7 +3,7 @@ self.addEventListener("install", function (event) {
     caches
       .open("v1-data")
       .then(function (cache) {
-        const urlsToCache = ["/index.html", "/dist/index.js"];
+        const urlsToCache = ["index.html", "index.js"];
         cache.addAll(urlsToCache);
       })
       .catch(console.warn)
