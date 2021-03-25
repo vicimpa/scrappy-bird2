@@ -24,7 +24,7 @@ export class Game {
     create('p', { className: 'score' }),
     create('p', { className: 'hiscore' }),
     create('div', { className: 'space' }),
-    create('button', { className: 'restart', innerText: 'Restart (Enter)', onclick: this.reset}))
+    create('button', { className: 'restart', innerText: 'Restart (Enter)', onclick: this.reset }))
 
   #bird = new Bird(this)
   #debug = new Debug(this)
@@ -46,6 +46,8 @@ export class Game {
 
   get debug() { return this.#debug }
 
+  get elem() { return this.#elem }
+
   work = false
   last = 0
   stage = 0
@@ -62,7 +64,7 @@ export class Game {
   backPosition = 0
   roadPosition = 0
 
-  get best() { 
+  get best() {
     const b = +localStorage.getItem('flappy-bird-best')
     return isNaN(b) ? 0 : b
   }
@@ -72,7 +74,7 @@ export class Game {
   }
 
 
-  get col() { 
+  get col() {
     const b = +this.#elem.getAttribute('data-col')
     return isNaN(b) ? 0 : b
   }
@@ -88,7 +90,7 @@ export class Game {
     const touch = (e: TouchEvent) => {
       e.preventDefault()
 
-      if(this.stage != 3)
+      if (this.stage != 3)
         this.click()
     }
 
@@ -99,16 +101,16 @@ export class Game {
     this.#elem.addEventListener('mousedown', (e) => {
       e.preventDefault()
 
-      if(this.stage != 3 && !isTouchDevice())
+      if (this.stage != 3 && !isTouchDevice())
         this.click()
 
       addEventListener('keydown', (e) => {
         e.preventDefault()
-      
-        if(e.key == ' ' && this.stage != 3)
+
+        if (e.key == ' ' && this.stage != 3)
           this.click()
-      
-        if(e.key == 'Enter' && this.stage == 3)
+
+        if (e.key == 'Enter' && this.stage == 3)
           this.reset()
       })
 
@@ -116,7 +118,7 @@ export class Game {
         e.preventDefault()
 
         //if(this.stage != 3)
-          //this.click()
+        //this.click()
       })
     })
 
@@ -130,9 +132,9 @@ export class Game {
   addScore() {
     this.score++
 
-    if(this.best < this.score)
+    if (this.best < this.score)
       this.best = this.score
-    
+
     Sound.point.play()
   }
 
@@ -153,7 +155,7 @@ export class Game {
     this.#bird.up = 0
     this.col = rand(0, 1)
     this.#bird.col = rand(0, 12)
-    
+
 
     this.anim = true
     this.#bird.reset()
@@ -169,7 +171,7 @@ export class Game {
     if (this.stage == 0)
       this.stage = 1
 
-    if(this.stage == 1)
+    if (this.stage == 1)
       Sound.wing.play()
 
     this.#bird.click()
@@ -243,13 +245,13 @@ export class Game {
       }
     }
 
-    if(this.stage > 1) {
+    if (this.stage > 1) {
       let score = `Score: ${this.score}`
-      if(this.scoreElement.innerHTML != score)
+      if (this.scoreElement.innerHTML != score)
         this.scoreElement.innerHTML = score
-  
+
       let hiscore = `Best: ${this.best}`
-      if(this.hiscoreElement.innerHTML != hiscore)
+      if (this.hiscoreElement.innerHTML != hiscore)
         this.hiscoreElement.innerHTML = hiscore
     }
 
@@ -271,7 +273,7 @@ export class Game {
     if (this.stage != 3 && this.showEnd)
       this.showEnd = false
 
-    if(this.stage == 3 && this.stage != this.prev)
+    if (this.stage == 3 && this.stage != this.prev)
       Sound.hit.play()
 
     this.prev = this.stage
