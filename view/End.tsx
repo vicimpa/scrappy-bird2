@@ -22,12 +22,12 @@ export const EndComponent: FC<IEndProps> = (props) => {
   useEffect(() => {
     const c = () => {
       scoreRef.current && 
-        scoreRef.current.innerText != `${score}` &&
-        (scoreRef.current.innerText = `${score}`)
+        scoreRef.current.innerText != `Score ${score}` &&
+        (scoreRef.current.innerText = `Score ${score}`)
 
       hiscoreRef.current && 
-        hiscoreRef.current.innerText != `${hiscore}` &&
-        (hiscoreRef.current.innerText = `${hiscore}`)
+        hiscoreRef.current.innerText != `Hiscore ${hiscore}` &&
+        (hiscoreRef.current.innerText = `Hiscore ${hiscore}`)
     }
     const d = setInterval(c, 100); c()
     return () => clearInterval(d)
