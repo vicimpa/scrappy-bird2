@@ -152,23 +152,27 @@ html, body
   .debug
     position: absolute
 
-    top: 10px
+    top: 5px
     left: 0px
     right: 0px
 
     margin: auto
 
-    padding: 5px 10px
-    font-size: 50px
+    padding: 1px 5px
 
     text-align: center
-    transition-duration: 0.2s
-    transition-delay: 0.3s
-    transform: translateY(-100%) scale(0)
+    overflow: hidden
+
+    p
+      font-size: 40px
+      transition-duration: 0.2s
+      transition-delay: 0.3s
+      transform: translateY(-100%)
 
     &[data-show]
-      transition-delay: 0.1s
-      transform: translateY(0) scale(1)
+      p
+        transition-delay: 0.1s
+        transform: translateY(0)
 
     p
       margin: 0

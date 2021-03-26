@@ -12,14 +12,13 @@ export class Sound {
     this.#audio.volume = 0.3
     this.#audio.preload = 'auto'
     this.#audio.controls = false
-    this.#audio.onpause = () => {
-      this.#audio.currentTime = 0
-    }
   }
 
   play() {
-    if(this.#audio.played)
+    if(this.#audio.played) {
+      this.#audio.currentTime = 0
       this.#audio.pause()
+    }
 
     this.#audio.play()
       .catch(() => null)
