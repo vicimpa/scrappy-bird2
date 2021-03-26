@@ -4,10 +4,15 @@ import { Entity } from "~/class/Entity"
 import { Game } from "../class/Game";
 
 export class Display extends Component{
-  #can = createRef<HTMLCanvasElement>()
+  #can = createRef<HTMLCanvasElement & {ctx: CanvasRenderingContext2D}>()
 
-  get can() { return this.#can.current }
-  get ctx() { return this.can?.getContext('2d') }
+  get can() { 
+    return this.#can.current 
+  }
+  get ctx() { 
+    return this?.can?.ctx || 
+      (this.can && (this.can.ctx = this.can.getContext('2d'))) 
+  }
 
   constructor(public game: Game) {
     super()

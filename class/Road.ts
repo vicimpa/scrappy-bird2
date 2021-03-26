@@ -34,7 +34,6 @@ export class Road extends Entity {
     if(backColor) {
       game.bottomColor = [...backColor]
       delete this.backColor
-      console.log(backColor)
     }
   } 
 

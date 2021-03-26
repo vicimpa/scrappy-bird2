@@ -12,6 +12,7 @@ export const GameComponent = () => {
   const [scale, setScale] = useState(getZoom())
   const [{stage, score, hiscore}] = game.state.useState()
   const {topColor, bottomColor} = game
+  const scoreRef = createRef<HTMLParagraphElement>()
 
   const showEnd = stage == 3
   const endRef = createRef<HTMLDivElement>()
@@ -32,6 +33,10 @@ export const GameComponent = () => {
       `rgba(${bottomColor.join(',')})`
   }
 
+  listen(window, 'DOMNodeInserted' as any, (e) => {
+    console.log(e)
+  })
+
   listen(window, 'resize', () => {
     const newScale = getZoom()
 
@@ -39,8 +44,32 @@ export const GameComponent = () => {
       setScale(newScale)
   })
 
+  listen(window, 'contextmenu', (e) => {
+    e.preventDefault()
+  })
+
+  listen(window, 'keydown', (e) => {
+    e.preventDefault()
+
+    if(e.key == ' ' || e.key == 'Space')
+      game.click()
+
+    if(e.key == 'Enter' && stage == 3)
+      game.reset()
+  })
+
   useEffect(() => {
     setScale(getZoom())
+  })
+
+  useEffect(() => {
+    const c = () => {
+      scoreRef.current && 
+        scoreRef.current.innerText != `${score}` &&
+        (scoreRef.current.innerText = `${score}`)
+    }
+    const d = setInterval(c, 100); c()
+    return () => clearInterval(d)
   })
 
   const click = (e: MouseEvent) => {
@@ -50,7 +79,7 @@ export const GameComponent = () => {
     if(isChild(e.target, endRef.current) && showEnd)
       return
 
-    if(!isTouchDevice())
+    if(!isTouchDevice() && e.button == 0)
       game.click()
   }
 
@@ -69,7 +98,7 @@ export const GameComponent = () => {
       {game.double.render()}
       {game.display.render()}
       <div data-show={stage==1 || stage==2} className="debug">
-        <p>{score}</p>
+        <p ref={scoreRef}>{score}</p>
       </div>
       <StartComponent show={stage == 0} />
       <EndComponent ref={endRef} show={showEnd} score={score} hiscore={hiscore}>

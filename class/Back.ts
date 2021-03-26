@@ -37,7 +37,6 @@ export class Back extends Entity {
     if(backColor) {
       game.topColor = [...backColor]
       delete this.backColor
-      console.log(backColor)
     }
 
     this.position %= width
