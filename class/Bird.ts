@@ -67,7 +67,7 @@ export class Bird extends Entity {
   }
 
   update(delta = 0, time = 0) {
-    const { upFly, height: birdHeight, game } = this
+    const { upFly, height: birdHeight, game, frames } = this
     const { stage, heightFiel: height, objects } = game
 
     const maxSpeed = stage == 1 ? this.maxSpeed : this.maxSpeed2
@@ -78,7 +78,7 @@ export class Bird extends Entity {
     }
 
     if(stage < 2)
-      this.frame = (abs(time % (upFly * 3 * 2) - upFly * 3) / upFly) | 0
+      this.frame = (abs(time % (upFly * frames * 2) - upFly * frames) / upFly) | 0
 
     if (stage == 0)
       this.y = 100 + Math.cos(PID + time * 0.005) * 10
