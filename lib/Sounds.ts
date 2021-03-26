@@ -1,5 +1,3 @@
-import { create } from "./Dom";
-
 export class Sound {
   #src = ''
   #audio: HTMLAudioElement
@@ -24,6 +22,7 @@ export class Sound {
       this.#audio.pause()
 
     this.#audio.play()
+      .catch(() => null)
   }
 
   static die = new Sound(require('~/sound/die.mp3'))

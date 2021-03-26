@@ -6,7 +6,7 @@ self.addEventListener("install", function (event) {
         const urlsToCache = ["index.html", "index.js"];
         cache.addAll(urlsToCache);
       })
-      .catch(console.warn)
+      .catch(console.error)
   );
 });
 
@@ -21,7 +21,7 @@ self.addEventListener("activate", event => {
           }
         })
       );
-    })
+    }).catch(console.error)
   );
 });
 
@@ -29,6 +29,6 @@ self.addEventListener("fetch", function (event) {
   event.respondWith(
     caches.match(event.request).then(function (response) {
       return response || fetch(event.request);
-    })
+    }).catch(console.error)
   );
 });

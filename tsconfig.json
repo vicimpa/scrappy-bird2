@@ -3,6 +3,8 @@
     "target": "ES2019",
     "module": "CommonJS",
     "esModuleInterop": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "sourceMap": true
   }
 }

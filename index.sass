@@ -7,55 +7,11 @@ html, body
   image-rendering: pixelated
   text-transform: uppercase
   background: #444
+  user-select: none
 
 @font-face
   font-family: thintel
   src: url(/fonts/thintel.ttf)
-
-$width: 144px
-$height: 256px
-
-$heightRoad: 56px
-$pipeWidth: 26px
-
-$startWidth: 57px
-$startHeight: 49px
-
-$pipeBgHeight: 160px
-$pipeHeight: 45px
-
-$birdWidth: 17px
-$birdHeight: 12px
-
-$birdSpriteWidth: $birdWidth * 3
-$birdSpriteHeigt: $birdHeight * 13
-
-$zoom: 2  
-
-$width: $width * $zoom
-$height: $height * $zoom
-
-$heightRoad: $heightRoad * $zoom
-$pipeWidth: $pipeWidth * $zoom
-
-$pipeHeight: $pipeHeight * $zoom
-$pipeBgHeight: $pipeBgHeight * $zoom
-
-$startWidth: $startWidth * $zoom
-$startHeight: $startHeight * $zoom
-
-$birdWidth: $birdWidth * $zoom
-$birdHeight: $birdHeight * $zoom
-
-$birdSpriteWidth: $birdSpriteWidth * $zoom
-$birdSpriteHeigt: $birdSpriteHeigt * $zoom
-
-@keyframes back-animate
-  0%
-    background-position: $width 0px
-
-  100%
-    background-position: 0px 0px
 
 @keyframes jumping
   0%
@@ -63,14 +19,14 @@ $birdSpriteHeigt: $birdSpriteHeigt * $zoom
   46%
     transform: translateY(0) scale(1)
   50%
-    transform: translateY(5px) scale(0.9)
+    transform: translateY(3px) scale(0.95)
   52%
     transform: translateY(0) scale(1)
   100%
     transform: translateY(0) scale(1)
     
 
-.back
+.game
   position: absolute
 
   top: 0
@@ -80,23 +36,29 @@ $birdSpriteHeigt: $birdSpriteHeigt * $zoom
 
   margin: auto
 
-  width: $width
-  height: $height
+  .up, .down
+    position: absolute
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
 
-  overflow: hidden
+  .up
+    top: -50%
 
-  background: url(/img/back.png)
-  background-size: $width $height * 2
+  .down
+    bottom: -50%
 
-  @for $var from 0 through 1
-    &[data-col="#{$var}"]
-      background-position-y: $height * $var * -1
+  canvas
+    position: absolute
+
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
 
   .start
     position: absolute
-
-    width: $startWidth
-    height: $startHeight
 
     top: 0
     left: 0
@@ -106,71 +68,85 @@ $birdSpriteHeigt: $birdSpriteHeigt * $zoom
     margin: auto
 
     opacity: 0
+    transform: translateY(-100vh)
+    display: flex
+    justify-content: center
+    align-items: center
 
-    background: url(/img/start.png)
-    background-size: $startWidth $startHeight
+    img
+      animation: jumping 1s infinite
 
-    &.show
+    &[data-show]
       opacity: 1
       transition-duration: 0.8s
       transition-delay: 0.2s
-      animation: jumping 1s infinite
+      transform: translateY(0)
 
   .end
     position: absolute
-
-    width: $width - $width / 3
-    height: $height - $height / 1.3
 
     top: 0
     left: 0
     right: 0
     bottom: 0
 
-    margin: auto
-
     display: flex
-    flex-direction: column
+    justify-content: center
+    align-items: center
 
-    padding: 20px
+    &[data-show]
+      .block
+        opacity: 1
+        transition-delay: 0.3s
+        transition-duration: 0.8s
+        transform: translateY(0vh) scale(1)
 
-    background-color: #E2DB9F
-    border: 2px solid #5D4051
-    border-radius: 10px
+    .block
+      display: flex
+      flex-direction: column
 
-    justify-content: space-between
+      padding: 10px
 
-    transform: translateY($height*1.5) scale(0.6)
-    transition-duration: 0.2s
-    z-index: 2
+      background-color: #E2DB9F
+      border: 1px solid #5D4051
+      border-radius: 10px
 
-    &.show
-      transition-delay: 0.3s
-      transition-duration: 0.8s
-      transform: translateY(0) scale(1)
+      justify-content: space-between
 
-    button
-      cursor: pointer
-      font-size: 26px
-      font-family: thintel
-      text-transform: uppercase
-      background-color: #E56B08
-      color: #fff
-      border: 2px solid #5E3600
-      border-bottom-width: 3px
-      box-shadow: inset -2px -2px 1px #fff, inset 2px 2px 1px #fff
+      opacity: 0
+      transform: translateY(20vh) scale(0.6)
+      transition-duration: 0.2s
+      z-index: 2
 
-    p
-      font-family: thintel
-      color: #F58364
-      text-shadow: 0px 2px 1px #F2EBAB
-      text-align: center
-      font-weight: normal
-      margin: 0
-      font-size: 24px
+      button
+        cursor: pointer
+        font-size: 13px
+        font-family: thintel
+        text-transform: uppercase
+        background-color: #E56B08
+        color: #fff
+        border: 1px solid #5E3600
+        border-bottom-width: 2px
+        padding: 2.5px 20px
+        box-shadow: inset -1px -1px 1px #fff, inset 1px 1px 1px #fff
+        margin-bottom: 2px
+        outline: none
 
-    .space
-      flex-grow: 1
+      p
+        font-family: thintel
+        color: #F58364
+        text-shadow: 0px 1px 1px #F2EBAB
+        text-align: center
+        font-weight: normal
+        margin: 0
+        font-size: 12px
+
+        span
+          font-size: 13px
+
+      .space
+        flex-grow: 1
+        height: 20px
 
   .debug
     position: absolute
@@ -185,6 +161,13 @@ $birdSpriteHeigt: $birdSpriteHeigt * $zoom
     font-size: 50px
 
     text-align: center
+    transition-duration: 0.2s
+    transition-delay: 0.3s
+    transform: translateY(-100%) scale(0.2)
+
+    &[data-show]
+      transition-delay: 0.1s
+      transform: translateY(0) scale(1)
 
     p
       margin: 0
@@ -194,79 +177,3 @@ $birdSpriteHeigt: $birdSpriteHeigt * $zoom
         display: none
       *
         font-weight: normal
-
-  .road
-    background: url(/img/road.png)
-    background-size: $width $heightRoad
-    position: absolute
-
-    left: 0
-    right: 0
-    bottom: 0
-
-    width: $width
-    height: $heightRoad
-
-  &.anim
-    animation: back-animate 6s linear infinite
-
-    .road
-      animation: back-animate 3s linear infinite
-
-  .bird
-    position: absolute
-
-    top: 250px
-    left: -50px  
-
-    width: $birdWidth
-    height: $birdHeight
-
-    background: url(/img/bird.png)
-    background-size: $birdSpriteWidth $birdSpriteHeigt
-    background-position-y: $birdHeight*0
-
-    @for $var from 0 through 2
-      &[data-up="#{$var}"]
-        background-position-x: $birdWidth * $var * -1
-    @for $var from 0 through 12
-      &[data-col="#{$var}"]
-        background-position-y: $birdHeight * $var * -1
-    
-  .pane-container
-    width: $width
-    height: $height - $heightRoad
-    overflow: hidden
-
-    position: absolute
-
-    top: 0
-    left: 0
-    right: 0
-
-    .pipe
-      position: absolute
-      width: $pipeWidth
-      height: $pipeHeight
-
-      top: 240px
-      left: 200px
-
-      &::before, &::after
-        background: url(/img/pipe.png)
-        background-size: $pipeWidth * 2 $pipeBgHeight
-        content: ' '
-        display: block
-        position: absolute
-        width: $pipeWidth
-        height: $pipeBgHeight
-        left: 0
-        right: 0
-
-      &::before
-        bottom: 100%
-        background-position-x: $pipeWidth*0
-
-      &::after
-        background-position-x: $pipeWidth*1
-        top: 100%

@@ -10,7 +10,7 @@ export function create<T extends keyof HTMLElementTagNameMap>(
   ...childs: HTMLElement[]
 ) {
   const e = document.createElement(elem)
-  const { onCreate, ...opt } = options
+  const { onCreate, ...opt } = options || {}
 
   toObject(options, e)
 

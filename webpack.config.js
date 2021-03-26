@@ -1,17 +1,19 @@
 const { join } = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlPugWebpackPlugin = require('html-webpack-pug-plugin')
 
 const devMode = process.env.NODE_ENV != 'production'
-
+const {version} = require('./package.json')
 
 /** @type {import('webpack').Configuration} */
 const config = {
   entry: {
-    index: './index.ts'
+    index: './index.tsx'
   },
   output: {
     path: join(__dirname),
-    publicPath: '/',
-    filename: '[name].js'
+    publicPath: './',
+    filename: '[name].js?v='+(version || 1) 
   },
   resolve: {
     extensions: ['.js', '.json', '.ts', '.tsx', '.jsx', '.mjs']
@@ -55,8 +57,27 @@ const config = {
           'css-loader'
         ]
       },
+      {
+        test: /\.pug$/,
+        use: [
+          "html-loader",
+          {
+            loader: "pug-html-loader",
+            options: {
+              "pretty":true
+            }
+          }
+        ]
+      }
     ]
-  }
+  },
+  plugins: [
+    new HtmlPugWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.pug'
+    })
+  ]
   
 }
 
