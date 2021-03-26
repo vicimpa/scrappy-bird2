@@ -1,5 +1,5 @@
-import { createRef, RefObject } from "preact";
-import React, { FC, useEffect, useState } from "preact/compat";
+import { RefObject } from "preact";
+import React, { FC, useEffect, createRef } from "preact/compat";
 import { zoom } from "~/config";
 
 interface IEndProps {

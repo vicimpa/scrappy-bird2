@@ -1,7 +1,6 @@
 import React, { Component, createRef } from "preact/compat";
 import { zoom } from "~/config"
-import { Entity } from "~/class/Entity"
-import { Game } from "../class/Game";
+import { Game } from "~/class/Game";
 
 export class Display extends Component{
   #can = createRef<HTMLCanvasElement & {ctx: CanvasRenderingContext2D}>()

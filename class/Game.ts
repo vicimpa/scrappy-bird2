@@ -7,7 +7,7 @@ import { Display } from "~/view/Display";
 import { SharedState } from "@vicimpa/shared-state";
 import { Back } from "./Back";
 import { Road } from "./Road";
-import { Sound } from "../lib/Sounds";
+import { Sound } from "~/lib/Sounds";
 
 const initialState = {
   score: 0,
