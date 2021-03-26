@@ -96,7 +96,7 @@ export const GameComponent = () => {
       <div style={bottom} className="down" /> */}
 
       {game.double.render()}
-      {game.display.render()}
+      
       <div data-show={stage==1 || stage==2} className="debug">
         <p ref={scoreRef}>{score}</p>
       </div>
