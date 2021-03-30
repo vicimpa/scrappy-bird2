@@ -7,9 +7,8 @@ render(<GameComponent />, document.body)
 
 document.head.innerHTML += (`
     <link rel="manifest" href="./manifest.json">
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
 `)
-
-
 
 addEventListener("load", () => {
   if (navigator.serviceWorker) {
