@@ -22,9 +22,9 @@ export const GameComponent = () => {
     height: `${cfg.game.height * cfg.zoom}px`
   }
 
-  listen(window, 'DOMNodeInserted' as any, (e) => {
-    console.log(e)
-  })
+  // listen(window, 'DOMNodeInserted' as any, (e) => {
+  //   console.log(e)
+  // })
 
   listen(window, 'resize', () => {
     const newScale = getZoom()
@@ -81,7 +81,7 @@ export const GameComponent = () => {
 
   return (
     <div style={style} onMouseDown={click} onTouchStart={touch} className="game">
-      {game.double.render()}
+      {game.display.render()}
       
       <div data-show={stage==1 || stage==2} className="debug">
         <p ref={scoreRef}>{score}</p>

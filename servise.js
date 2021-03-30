@@ -3,7 +3,7 @@ self.addEventListener("install", function (event) {
     caches
       .open("v1-data")
       .then(function (cache) {
-        const urlsToCache = ["index.html", "index.js"];
+        const urlsToCache = [location.href, "index.html", "index.js", "manifest.json", "favicon.png"];
         cache.addAll(urlsToCache);
       })
       .catch(console.error)
@@ -29,6 +29,6 @@ self.addEventListener("fetch", function (event) {
   event.respondWith(
     caches.match(event.request).then(function (response) {
       return response || fetch(event.request);
-    }).catch(console.error)
+    }).catch((e) => {})
   );
 });

@@ -29,7 +29,6 @@ export class Game {
   heightFiel = this.height - road.height
 
   display = new Display(this)
-  double = new Display(this)
 
   constructor() {
     this.state.onChange(this.change)
