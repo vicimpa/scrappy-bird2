@@ -11,7 +11,6 @@ const game = new Game()
 export const GameComponent = () => {
   const [scale, setScale] = useState(getZoom())
   const [{stage, score, hiscore}] = game.state.useState()
-  const {topColor, bottomColor} = game
   const scoreRef = createRef<HTMLParagraphElement>()
 
   const showEnd = stage == 3
@@ -21,16 +20,6 @@ export const GameComponent = () => {
     transform: `scale(${scale})`,
     width: `${cfg.game.width * cfg.zoom}px`,
     height: `${cfg.game.height * cfg.zoom}px`
-  }
-
-  const top: JSX.CSSProperties = {
-    background: topColor && 
-      `rgba(${topColor.join(',')})`
-  }
-
-  const bottom: JSX.CSSProperties = {
-    background: bottomColor && 
-      `rgba(${bottomColor.join(',')})`
   }
 
   listen(window, 'DOMNodeInserted' as any, (e) => {
@@ -92,9 +81,6 @@ export const GameComponent = () => {
 
   return (
     <div style={style} onMouseDown={click} onTouchStart={touch} className="game">
-      {/* <div style={top} className="up" />
-      <div style={bottom} className="down" /> */}
-
       {game.double.render()}
       
       <div data-show={stage==1 || stage==2} className="debug">

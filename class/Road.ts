@@ -12,9 +12,6 @@ export class Road extends Entity {
   width = road.width
   height = road.height
 
-  backColor: Uint8ClampedArray
-  first = true
-
   init() {
     this.image = new Image()
     this.image.src = require('~/img/road.png').default
@@ -24,17 +21,12 @@ export class Road extends Entity {
   }
 
   update(delta, time) {
-    const { width, backColor, game } = this
+    const { width, game } = this
 
     if(game.stage < 2)
       this.position += delta * this.speed
 
     this.position %= width
-
-    if(backColor) {
-      game.bottomColor = [...backColor]
-      delete this.backColor
-    }
   } 
 
   render({ctx}: Display) {
@@ -56,11 +48,6 @@ export class Road extends Entity {
 
     ctx?.drawImage(image,
       0, height * color, width, height,
-      xdiv2*zoom, ydiv1, zWidth, zHeight)    
-      
-    if(this.first) {
-      this.first = false
-      this.backColor = ctx.getImageData(xdiv2*zoom, ydiv1+zHeight-2, 1, 1).data
-    }
+      xdiv2*zoom, ydiv1, zWidth, zHeight) 
   }
 }

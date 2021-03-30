@@ -15,8 +15,6 @@ export class Back extends Entity {
   position = 0
 
   colors = 0
-  backColor: Uint8ClampedArray
-  first = true
 
   init() {
     this.image = new Image()
@@ -33,15 +31,10 @@ export class Back extends Entity {
   }
 
   update(delta, time) {
-    const { width, game, backColor } = this
+    const { width, game } = this
 
     if(game.stage < 2)
       this.position += delta * this.speed
-
-    if(backColor) {
-      game.topColor = [...backColor]
-      delete this.backColor
-    }
 
     this.position %= width
   } 
@@ -65,10 +58,5 @@ export class Back extends Entity {
     ctx?.drawImage(image,
       0, height * color, width, height,
       xdiv2*zoom, 0, zWidth, zHeight)
-
-    if(this.first) {
-      this.first = false
-      this.backColor = ctx.getImageData(xdiv2*zoom, 0, 1, 1).data
-    }
   }
 }

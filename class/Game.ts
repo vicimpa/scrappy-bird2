@@ -37,12 +37,6 @@ export class Game {
   }
 
   @state('state')
-  topColor: number[]
-
-  @state('state')
-  bottomColor: number[]
-
-  @state('state')
   stage: number
 
   @state('state')
