@@ -24,8 +24,12 @@ export class Back extends Entity {
     this.image.onload = () => {
       this.ready = true
       this.colors = this.image.height / this.height
-      this.color = rand(0, this.colors - 1)
+      this.reset()
     }
+  }
+
+  reset() {
+    this.color = rand(0, this.colors - 1)
   }
 
   update(delta, time) {

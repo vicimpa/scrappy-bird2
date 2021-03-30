@@ -106,6 +106,7 @@ export class Game {
 
     this.objects.splice(0)
     this.bird.reset()
+    this.back.reset()
     Sound.swooshing.play()
   }
 
