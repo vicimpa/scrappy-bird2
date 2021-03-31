@@ -25,7 +25,7 @@ export class Bird extends Entity {
   rotate = 0
   speed = 0
   maxSpeed = 20
-  maxSpeed2 = 40
+  maxSpeed2 = 50
   minSpeed = -15
 
   frames = 0
@@ -105,9 +105,9 @@ export class Bird extends Entity {
 
         if (this.x - 6 + this.width > obj.x) {
           if (this.y > obj.y)
-            this.speed = this.minSpeed * 0.8
+            this.speed = this.minSpeed * 0.7
           else
-            this.speed = 0
+            this.speed = Math.abs(this.speed) * 0.6
         } else {
           this.speed = 0
         }
