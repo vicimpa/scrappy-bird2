@@ -103,7 +103,7 @@ export class Bird extends Entity {
           Sound.die.play()
         }, 300)
 
-        if (this.x > obj.x) {
+        if (this.x - 6 + this.width > obj.x) {
           if (this.y > obj.y)
             this.speed = this.minSpeed * 0.8
           else
