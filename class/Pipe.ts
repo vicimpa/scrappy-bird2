@@ -14,7 +14,6 @@ export class Pipe extends Entity {
   width = pipe.width
   height = pipe.height
 
-
   speed = game.width / pipe.speed
   padding = 40
   door = 40

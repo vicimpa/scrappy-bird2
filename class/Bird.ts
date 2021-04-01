@@ -16,6 +16,8 @@ export class Bird extends Entity {
   sX = 20
   sY = 100
 
+  auto = false
+
   width = bird.width
   height = bird.height
 
@@ -24,7 +26,7 @@ export class Bird extends Entity {
 
   rotate = 0
   speed = 0
-  maxSpeed = 20
+  maxSpeed = 30
   maxSpeed2 = 50
   minSpeed = -15
 
@@ -83,6 +85,23 @@ export class Bird extends Entity {
     if (stage == 0)
       this.y = 100 + Math.cos(PID + time * 0.005) * 10
 
+    if(this.auto) {
+      for(let i = 0; i < objects.length; i++) {
+        const obj = objects[i]
+
+        if(obj.x + obj.width < this.x)
+          continue
+
+        if(
+          this.speed > this.minSpeed + 5 &&
+          obj.y + obj.door < this.y + this.height + 2
+        ) {
+          this.click()
+        }
+
+        break
+      }
+    }
 
     for(let i = 0; i < objects.length; i++) {
       const obj = objects[i]
