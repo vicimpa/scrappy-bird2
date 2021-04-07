@@ -137,7 +137,8 @@ export class Game {
   }
 
   @bind()
-  update(time = 0) {
+  update() {
+    const time = performance.now()
     const delta = time - this.last
     this.last = time
 

@@ -10,6 +10,7 @@ if(location.protocol == 'https:') {
     <link rel="manifest" href="./manifest.json">
     <link rel="shortcut icon" href="favicon.png" type="image/png">
   `)
+  
   addEventListener("load", () => {
     if (navigator.serviceWorker) {
       navigator.serviceWorker.getRegistration('./service.js')

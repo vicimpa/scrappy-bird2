@@ -37,6 +37,7 @@ export class Bird extends Entity {
   upFlyNeed = this.upFly
   upFlyCount = 250
   upFlyLast = performance.now()
+  free = 0
 
   init() {
     this.image = new Image()
@@ -86,6 +87,14 @@ export class Bird extends Entity {
       this.y = 100 + Math.cos(PID + time * 0.005) * 10
 
     if(this.auto) {
+      if(stage == 0)
+        this.game.click()
+
+      if(stage == 3 && ++this.frame > 200) {
+        this.free = 0
+        this.game.reset()
+      }
+
       for(let i = 0; i < objects.length; i++) {
         const obj = objects[i]
 
@@ -93,8 +102,9 @@ export class Bird extends Entity {
           continue
 
         if(
-          this.speed > this.minSpeed + 5 &&
-          obj.y + obj.door < this.y + this.height + 2
+          (this.speed > this.minSpeed + 3 &&
+            obj.y + obj.door < this.y + this.height + 2) ||
+          this.y > game.height - 80 
         ) {
           this.click()
         }
@@ -167,6 +177,7 @@ export class Bird extends Entity {
     const dY = zHeight*.5
 
     ctx?.beginPath()
+
       ctx?.save()
       ctx?.translate(nX+dX, nY+dY)
       ctx?.rotate(this.rotate)
@@ -178,6 +189,7 @@ export class Bird extends Entity {
       ctx?.rotate(-this.rotate)
       ctx?.translate(-nX-dX, -nY-dY)
       ctx?.restore()
+
     ctx?.closePath()
   }
 }
