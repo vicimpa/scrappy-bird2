@@ -7,7 +7,7 @@
 > git clone https://github.com/vicimpa/scrappy-bird2
 > cd scrappy-bird2
 > npm install
-> npm run build-prod
+> npm run build
 ```
 
 ## Запуск 
