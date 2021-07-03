@@ -3,6 +3,8 @@ export class Sound {
   #audio: HTMLAudioElement
 
   constructor(src = '') {
+    src = require(src)
+    
     if (typeof src == 'object')
       this.#src = src['default']
     else
@@ -24,9 +26,9 @@ export class Sound {
       .catch(() => null)
   }
 
-  static die = new Sound(require('~/sound/die.mp3'))
-  static hit = new Sound(require('~/sound/hit.mp3'))
-  static point = new Sound(require('~/sound/point.mp3'))
-  static swooshing = new Sound(require('~/sound/swooshing.mp3'))
-  static wing = new Sound(require('~/sound/wing.mp3'))
+  static die = new Sound('~/sound/die.mp3')
+  static hit = new Sound('~/sound/hit.mp3')
+  static point = new Sound('~/sound/point.mp3')
+  static swooshing = new Sound('~/sound/swooshing.mp3')
+  static wing = new Sound('~/sound/wing.mp3')
 }
