@@ -23,6 +23,7 @@ export class Bird extends Entity {
 
   frame = 0
   color = 0
+  death = 0
 
   rotate = 0
   speed = 0
@@ -166,7 +167,7 @@ export class Bird extends Entity {
     if (!this.ready) return
 
     const { image, x, y, width, height } = this
-    const { color, frame } = this
+    const { color, frame, death } = this
     const zWidth = width * zoom
     const zHeight = height * zoom
 
@@ -183,7 +184,8 @@ export class Bird extends Entity {
       ctx?.rotate(this.rotate)
 
       ctx?.drawImage(image,
-        width * frame, color * height, width, height,
+        width * frame + width * 3 * death, 
+        color * height, width, height,
         -dX, -dY, zWidth, zHeight)
 
       ctx?.rotate(-this.rotate)
