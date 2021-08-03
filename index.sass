@@ -29,7 +29,7 @@ body
     transform: translateY(0) scale(1)
 
   50%
-    transform: translateY(3px) scale(0.95)
+    transform: translateY(calc(3px * var(--zoom))) scale(0.95)
 
   52%
     transform: translateY(0) scale(1)
@@ -86,6 +86,7 @@ body
 
     img
       animation: jumping 1s infinite
+      transform: scale(var(--zoom))
 
     &[data-show]
       opacity: 1
@@ -116,11 +117,11 @@ body
       display: flex
       flex-direction: column
 
-      padding: 10px
+      padding: calc(10px * var(--zoom))
 
       background-color: #E2DB9F
       border: 1px solid #5D4051
-      border-radius: 10px
+      border-radius: calc(10px * var(--zoom))
 
       justify-content: space-between
 
@@ -131,15 +132,15 @@ body
 
       button
         cursor: pointer
-        font-size: 13px
+        font-size: calc(13px * var(--zoom))
         font-family: thintel
         text-transform: uppercase
         background-color: #E56B08
         color: #fff
-        border: 1px solid #5E3600
-        border-bottom-width: 2px
-        padding: 2.5px 20px
-        box-shadow: inset -1px -1px 1px #fff, inset 1px 1px 1px #fff
+        border: calc(1px * var(--zoom)) solid #5E3600
+        border-bottom-width: calc(2px * var(--zoom))
+        padding: calc(2.5px * var(--zoom)) calc(20px * var(--zoom))
+        box-shadow: inset calc(-1px * var(--zoom)) calc(-1px * var(--zoom)) calc(1px * var(--zoom)) #fff, inset calc(1px * var(--zoom)) calc(1px * var(--zoom)) calc(1px * var(--zoom)) #fff
         margin-bottom: 2px
         outline: none
 
@@ -150,14 +151,14 @@ body
         text-align: center
         font-weight: normal
         margin: 0
-        font-size: 12px
+        font-size: calc(12px * var(--zoom))
 
         span
-          font-size: 13px
+          font-size: calc(13px * var(--zoom))
 
       .space
         flex-grow: 1
-        height: 20px
+        height: calc(20px * var(--zoom))
 
   .debug
     position: absolute
