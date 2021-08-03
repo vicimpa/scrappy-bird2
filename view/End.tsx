@@ -1,6 +1,6 @@
 import { RefObject } from "preact";
 import React, { FC, useEffect, createRef } from "preact/compat";
-import { zoom } from "~/config";
+import { zoom } from "../config";
 
 interface IEndProps {
   show?: boolean
@@ -34,7 +34,7 @@ export const EndComponent: FC<IEndProps> = (props) => {
   })
 
   return (
-    <div style={{transform: `scale(${zoom})`}} data-show={show} className="end">
+    <div style={{'--zoom': zoom}} data-show={show} className="end">
       <div ref={props.ref} className="block">
         <p className="score">Score <span ref={scoreRef}>{score}</span></p>
         <p className="hiscore">Best <span ref={hiscoreRef}>{hiscore}</span></p>
