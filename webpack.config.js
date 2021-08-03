@@ -72,6 +72,7 @@ const config = {
     ]
   },
   plugins: [
+    require('autoprefixer'),
     new HtmlPugWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
