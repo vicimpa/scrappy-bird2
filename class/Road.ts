@@ -48,6 +48,6 @@ export class Road extends Entity {
 
     ctx?.drawImage(image,
       0, height * color, width, height,
-      xdiv2*zoom, ydiv1, zWidth, zHeight) 
+      xdiv2*zoom-1, ydiv1, zWidth, zHeight) 
   }
 }

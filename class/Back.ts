@@ -57,6 +57,6 @@ export class Back extends Entity {
 
     ctx?.drawImage(image,
       0, height * color, width, height,
-      xdiv2*zoom, 0, zWidth, zHeight)
+      xdiv2*zoom-1, 0, zWidth, zHeight)
   }
 }
