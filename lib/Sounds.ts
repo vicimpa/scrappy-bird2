@@ -1,33 +1,44 @@
+const audioCtx = new (AudioContext || window['webkitAudioContext']) as AudioContext
+const gainNode = audioCtx.createGain()
+
+gainNode.gain.value = 0.3
+gainNode.connect(audioCtx.destination)
+
 export class Sound {
-  #src = ''
-  #audio: HTMLAudioElement
+  #buffer: AudioBuffer
 
   constructor(src = '') {
-    if (typeof src == 'object')
-      this.#src = src['default']
-    else
-      this.#src = src
+    this.loadSound(src?.['default'] || src)
+  }
 
-    this.#audio = new Audio(this.#src)
-    this.#audio.volume = 0.3
-    this.#audio.preload = 'auto'
-    this.#audio.controls = false
+  loadSound(src = '') {
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', src, true)
+    xhr.responseType = 'arraybuffer'
+    xhr.onload = () => {
+      audioCtx.decodeAudioData(xhr.response)
+        .then((buffer) => {
+          this.#buffer = buffer
+        }, console.error)
+    }
+    xhr.send()
   }
 
   play() {
-    if(this.#audio.played) {
-      this.#audio.currentTime = 0
-      this.#audio.pause()
+    const src = audioCtx.createBufferSource()
+    src.buffer = this.#buffer
+    src.connect(gainNode)
+    src.start(0)
+    src.onended = () => {
+      src.disconnect(gainNode)
+      delete src.onended
     }
-
-    this.#audio.play()
-      .catch(() => null)
   }
 
-  static die = new Sound(require('~/sound/die.mp3'))
-  static hit = new Sound(require('~/sound/hit.mp3'))
-  static hitPipe = new Sound(require('~/sound/hitPipe.mp3'))
-  static point = new Sound(require('~/sound/point.mp3'))
-  static swooshing = new Sound(require('~/sound/swooshing.mp3'))
-  static wing = new Sound(require('~/sound/wing.mp3'))
+  static die = new Sound(require('~/sound/die.wav'))
+  static hit = new Sound(require('~/sound/hit.wav'))
+  static hitPipe = new Sound(require('~/sound/hitPipe.wav'))
+  static point = new Sound(require('~/sound/point.wav'))
+  static swooshing = new Sound(require('~/sound/swooshing.wav'))
+  static wing = new Sound(require('~/sound/wing.wav'))
 }
