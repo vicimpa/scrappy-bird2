@@ -1,6 +1,6 @@
 {
   "name": "flappy-bird",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "build": "env NODE_ENV=production webpack",
     "build-dev": "env NODE_ENV=development webpack"
