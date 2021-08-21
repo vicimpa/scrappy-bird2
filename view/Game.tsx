@@ -5,11 +5,13 @@ import * as cfg from "~/config";
 import { StartComponent } from "./Start";
 import { EndComponent } from "./End";
 import { Game } from "~/class/Game";
+import { VolumeButton, VolumeComponent } from "./Volume";
 
 const game = new Game()
 
 export const GameComponent = () => {
   const [scale, setScale] = useState(getZoom())
+  const [showVolume, setShowVolume] = useState(false)
   const [{stage, score, hiscore}] = game.state.useState()
   const scoreRef = createRef<HTMLParagraphElement>()
 
@@ -81,6 +83,7 @@ export const GameComponent = () => {
 
   return (
     <div style={style} onMouseDown={click} onTouchStart={touch} className="game">
+      <VolumeButton onClick={() => setShowVolume(!showVolume)} />
       {game.display.render()}
       
       <div data-show={stage==1 || stage==2} className="debug">
@@ -91,6 +94,9 @@ export const GameComponent = () => {
         <button onClick={game.reset}>Restart (Enter)</button>
         <button onClick={game.github}>Github</button>
       </EndComponent>
+      <VolumeComponent 
+        onOutsideClick={() => (setShowVolume(false), console.log('Hi'))} 
+        show={showVolume} />
     </div>
   )
 }

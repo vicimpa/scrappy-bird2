@@ -1,3 +1,5 @@
+@import url('styles/volume.css')
+  
 html, body
   width: 100vw
   height: 100vh
@@ -47,6 +49,18 @@ body
 
   margin: auto
 
+  .volume-btn
+    position: absolute
+    top: 10px
+    right: 10px
+    z-index: 999
+    color: #fff
+    padding: 8px
+    background-color: #E56B08
+    border: calc(1px * var(--zoom)) solid #5E3600
+    border-bottom-width: calc(2px * var(--zoom))
+    cursor: pointer
+
   .up, .down
     position: absolute
     left: 0
@@ -93,7 +107,7 @@ body
       transition-delay: 0.2s
       transform: translateY(0)
 
-  .end
+  .end, .volume
     position: absolute
 
     top: 0
@@ -111,6 +125,22 @@ body
         transition-delay: 0.3s
         transition-duration: 0.8s
         transform: translateY(0vh) scale(1)
+
+    &.volume
+      width: 300px
+      &[data-show]
+        .block
+          opacity: 1
+          transition-delay: 0.1s
+          transition-duration: 0.3s
+          transform: translateY(0vh) scale(1)
+
+    .btns
+      display: flex
+      justify-content: space-between
+
+      i
+        cursor: pointer
 
     .block
       display: flex

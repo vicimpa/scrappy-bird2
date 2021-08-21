@@ -1,11 +1,24 @@
+import { SharedState } from "@vicimpa/shared-state"
+
 const audioCtx = new (AudioContext || window['webkitAudioContext']) as AudioContext
 const gainNode = audioCtx.createGain()
 
-gainNode.gain.value = 0.3
+export const volume = new SharedState(
+  +(localStorage.getItem('save-volume') || 0.5)
+)
+
+volume.onChange((e) => {
+  gainNode.gain.value = e
+  localStorage.setItem('save-volume', `${e}`)
+  Sound.wing.play()
+})
+
+gainNode.gain.value = volume.state
 gainNode.connect(audioCtx.destination)
 
 export class Sound {
   #buffer: AudioBuffer
+  static #now = 0
 
   constructor(src = '') {
     this.loadSound(src?.['default'] || src)
@@ -33,6 +46,22 @@ export class Sound {
       src.disconnect(gainNode)
       delete src.onended
     }
+  }
+
+  static test() {
+    const array = [
+      this.die,
+      this.hit,
+      this.hitPipe,
+      this.point,
+      this.swooshing,
+      this.wing
+    ]
+
+    if(!array[this.#now])
+      this.#now = 0
+
+    array[this.#now++].play()
   }
 
   static die = new Sound(require('~/sound/die.wav'))
