@@ -21,6 +21,7 @@ jobs:
           
       - name: Publish
         run: |
+          rm -rf public
           git clone "https://${{ secrets.ACCESS_TOKEN }}@github.com/vicimpa/vicimpa.github.io.git" public
           cd public
           rm -rf scrappy-bird2
