@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      
+        with:
+          node-version: '16'
+
+      - name: Build
+        run: |
+          npm i && npm run build
+          
+      - name: Publish
+        run: |
+          git clone "https://${{ secrets.ACCESS_TOKEN }}@github.com/vicimpa/vicimpa.github.io.git" public
+          cd public
+          rm -rf scrappy-bird2
+          mv ../dist scrappy-bird2
+          git add scrappy-bird2/*
+          git config --global user.email "vicimpa@ya.ru"
+          git config --global user.name "PromiSe####"
+          COMMIT_MESSAGE="Update pages on $(date +'%Y-%m-%d %H:%M:%S')"
+          git commit -m "${COMMIT_MESSAGE}"
+          git push
