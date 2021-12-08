@@ -10,6 +10,14 @@
 > npm run build
 ```
 
+## Разработка
+```bash
+> git clone https://github.com/vicimpa/scrappy-bird2
+> cd scrappy-bird2
+> npm install
+> npm run dev
+```
+
 ## Запуск 
 1. Открыть index.html
 1. Или перейти [сюда](https://vicimpa.github.io/scrappy-bird2)
