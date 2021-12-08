@@ -1,6 +1,6 @@
 @import url('styles/volume.css')
   
-html, body
+html, body, #app
   width: 100vw
   height: 100vh
 
@@ -12,7 +12,7 @@ html, body
   user-select: none
   overflow: hidden
 
-body
+#app
   position: fixed
   top: 0
   left: 0
@@ -21,7 +21,7 @@ body
 
 @font-face
   font-family: thintel
-  src: url(/fonts/thintel.ttf)
+  src: url(fonts/thintel.ttf)
 
 @keyframes jumping
   0%
@@ -101,7 +101,7 @@ body
     img
       animation: jumping 1s infinite
 
-    &[data-show]
+    &[data-show="true"]
       opacity: 1
       transition-duration: 0.8s
       transition-delay: 0.2s
@@ -119,7 +119,7 @@ body
     justify-content: center
     align-items: center
 
-    &[data-show]
+    &[data-show="true"]
       .block
         opacity: 1
         transition-delay: 0.3s
@@ -128,7 +128,7 @@ body
 
     &.volume
       width: 300px
-      &[data-show]
+      &[data-show="true"]
         .block
           opacity: 1
           transition-delay: 0.1s
@@ -209,7 +209,7 @@ body
       transition-delay: 0.3s
       transform: translateY(-100%)
 
-    &[data-show]
+    &[data-show="true"]
       p
         transition-delay: 0.1s
         transform: translateY(0)
