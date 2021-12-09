@@ -1,9 +1,10 @@
-import { Entity } from "./Entity";
 import { bird, zoom } from "config";
-import { Display } from "view/Display";
-import { rand } from "lib/Utils";
-import { Sound } from "lib/Sounds";
 import birdImage from "img/bird.png";
+import { Sound } from "lib/Sounds";
+import { rand } from "lib/Utils";
+import { Display } from "view/Display";
+
+import { Entity } from "./Entity";
 
 const { abs } = Math;
 const PI5 = Math.PI / 70;

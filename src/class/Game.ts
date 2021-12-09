@@ -1,14 +1,14 @@
+import { game, github, hiscoreKey, road, zoom } from "config";
+import { Sound } from "lib/Sounds";
+import { bind } from "lib/Utils";
+import { proxy, subscribe } from "valtio";
+import { Display } from "view/Display";
+
+import { Back } from "./Back";
 import { Bird } from "./Bird";
 import { Debug } from "./Debug";
 import { Pipe } from "./Pipe";
-import { bind, state, init } from "lib/Utils";
-import { game, github, hiscoreKey, road, zoom } from "config";
-import { Display } from "view/Display";
-import { SharedState } from "lib/SharedState";
-import { Back } from "./Back";
 import { Road } from "./Road";
-import { Sound } from "lib/Sounds";
-import { proxy, subscribe } from "valtio";
 
 const initialState = {
   score: 0,

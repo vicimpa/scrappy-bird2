@@ -1,7 +1,8 @@
-import { Display } from "view/Display";
 import { road, zoom } from "config";
-import { Entity } from "./Entity";
 import roadImage from "img/road.png";
+import { Display } from "view/Display";
+
+import { Entity } from "./Entity";
 
 export class Road extends Entity {
   image!: HTMLImageElement;

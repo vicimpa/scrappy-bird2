@@ -1,9 +1,10 @@
-import { Bird } from "./Bird";
-import { rand } from "lib/Utils";
-import { Entity } from "./Entity";
 import { game, pipe, road, zoom } from "config";
-import { Display } from "view/Display";
 import pipeImage from "img/pipe.png";
+import { rand } from "lib/Utils";
+import { Display } from "view/Display";
+
+import { Bird } from "./Bird";
+import { Entity } from "./Entity";
 
 export class Pipe extends Entity {
   image!: HTMLImageElement;

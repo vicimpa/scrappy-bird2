@@ -1,4 +1,5 @@
 import { Display } from "view/Display";
+
 import { Game } from "./Game";
 
 export class Entity {

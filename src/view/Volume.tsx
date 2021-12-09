@@ -1,7 +1,8 @@
 import { zoom } from "config";
 import { isOutside } from "lib/Outside";
-import { Sound, volume } from "lib/Sounds";
+import { Sound, state } from "lib/Sounds";
 import { FC, MouseEventHandler, useRef } from "react";
+import { useSnapshot } from "valtio";
 
 interface IVolumeButton {
   onClick?: MouseEventHandler;
@@ -10,14 +11,14 @@ interface IVolumeButton {
 export const VolumeButton: FC<IVolumeButton> = ({
   onClick = () => null
 }) => {
-  const [state] = volume.useState();
+  const { volume } = useSnapshot(state);
 
   let className = 'mute2';
 
-  if (state > .00) className = 'mute';
-  if (state > .25) className = 'low';
-  if (state > 0.5) className = 'medium';
-  if (state > .75) className = 'high';
+  if (volume > .00) className = 'mute';
+  if (volume > .25) className = 'low';
+  if (volume > 0.5) className = 'medium';
+  if (volume > .75) className = 'high';
 
   const click: MouseEventHandler = (e) => {
     e.preventDefault();
@@ -43,15 +44,15 @@ export const VolumeComponent: FC<IVolumeProps> = (props) => {
     show = false,
     onOutsideClick = () => null
   } = props;
-  const [state] = volume.useState();
+  const { volume } = useSnapshot(state);
   const ref = useRef<HTMLDivElement>();
 
   const change = (n = 0) => {
     return () => {
-      let newState = volume.state + n;
+      let newState = state.volume + n;
       if (newState < 0) newState = 0;
       if (newState > 1) newState = 1;
-      volume.setState(newState);
+      state.volume = newState;
     };
   };
 
@@ -68,7 +69,7 @@ export const VolumeComponent: FC<IVolumeProps> = (props) => {
       <div ref={ref as any} className="block">
         <p className="score">
           Volume:
-          <span>  {state * 100 | 0}%</span>
+          <span>  {volume * 100 | 0}%</span>
         </p>
 
         <div className="space"></div>

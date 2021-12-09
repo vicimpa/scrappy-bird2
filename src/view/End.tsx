@@ -1,5 +1,5 @@
 import { zoom } from "config";
-import { createRef, FC, forwardRef, PropsWithChildren, RefObject, useEffect, useRef } from "react";
+import { forwardRef, PropsWithChildren, RefObject, useEffect, useRef } from "react";
 
 type IEndProps = PropsWithChildren<{
   show?: boolean;

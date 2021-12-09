@@ -1,6 +1,5 @@
-
-import { zoom } from "config";
 import { Game } from "class/Game";
+import { zoom } from "config";
 import { Component, createRef } from "react";
 
 interface MyCan extends HTMLCanvasElement {

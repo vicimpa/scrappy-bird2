@@ -1,26 +1,25 @@
-import { SharedState } from "lib/SharedState";
 import dieSound from "sound/die.wav?url";
 import hitSound from "sound/hit.wav?url";
 import hitPipeSound from "sound/hitPipe.wav?url";
 import pointSound from "sound/point.wav?url";
 import swooshingSound from "sound/swooshing.wav?url";
 import wingSound from "sound/wing.wav?url";
-
+import { proxy, subscribe } from "valtio";
 
 const audioCtx = new (AudioContext || (window as any)['webkitAudioContext']) as AudioContext;
 const gainNode = audioCtx.createGain();
 
-export const volume = new SharedState(
-  +(localStorage.getItem('save-volume') || 0.5)
-);
+export const state = proxy({
+  volume: +(localStorage.getItem('save-volume') || 0.5)
+});
 
-volume.onChange((e) => {
-  gainNode.gain.value = e;
-  localStorage.setItem('save-volume', `${e}`);
+subscribe(state, () => {
+  gainNode.gain.value = state.volume;
+  localStorage.setItem('save-volume', `${state.volume}`);
   Sound.wing.play();
 });
 
-gainNode.gain.value = volume.state;
+gainNode.gain.value = state.volume;
 gainNode.connect(audioCtx.destination);
 
 export class Sound {

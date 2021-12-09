@@ -1,5 +1,4 @@
-import { zoom } from "../config";
-
+import { zoom } from "config";
 import startImg from "img/start.png";
 
 export const StartComponent = ({ show = false }) => {

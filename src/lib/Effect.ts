@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 
 function listen<K extends keyof WindowEventMap>(t: Window, e: K, l: (e: WindowEventMap[K]) => void): void;

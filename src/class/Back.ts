@@ -1,8 +1,9 @@
-import { Display } from "view/Display";
 import { game, zoom } from "config";
-import { rand } from "lib/Utils";
-import { Entity } from "./Entity";
 import backImg from "img/back.png";
+import { rand } from "lib/Utils";
+import { Display } from "view/Display";
+
+import { Entity } from "./Entity";
 
 export class Back extends Entity {
   image!: HTMLImageElement;
