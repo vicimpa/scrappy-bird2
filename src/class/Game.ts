@@ -1,4 +1,5 @@
 import { game, github, hiscoreKey, road, zoom } from "config";
+import { Codes } from "lib/Codes";
 import { Sound } from "lib/Sounds";
 import { bind } from "lib/Utils";
 import { proxy, subscribe } from "valtio";
@@ -37,6 +38,11 @@ export class Game {
     });
 
     this.update();
+
+    Codes.add('qwerty', () => {
+      const v = this.bird.auto = !this.bird.auto;
+      console.log('Автопилот ' + (v ? 'включен' : 'выключен'));
+    });
   }
 
   back = Back.init(this);
