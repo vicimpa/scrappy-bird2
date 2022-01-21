@@ -1,5 +1,5 @@
 @import url('styles/volume.css')
-  
+
 html, body, #app
   width: 100vw
   height: 100vh
@@ -26,7 +26,7 @@ html, body, #app
 @keyframes jumping
   0%
     transform: translateY(0) scale(calc(1 * var(--zoom)))
-  
+
   46%
     transform: translateY(0) scale(calc(1 * var(--zoom)))
 
@@ -114,12 +114,17 @@ html, body, #app
     left: 0
     right: 0
     bottom: 0
+    z-index: -1
 
     display: flex
     justify-content: center
     align-items: center
+    transition: z-index 0.3s 0.3s
 
     &[data-show="true"]
+      z-index: 1
+      transition: z-index 0.3s 0s
+
       .block
         opacity: 1
         transition-delay: 0.3s
