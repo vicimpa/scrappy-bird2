@@ -2,7 +2,6 @@ import { zoom } from "config";
 import { isOutside } from "lib/Outside";
 import { Sound, state } from "lib/Sounds";
 import { FC, MouseEventHandler, useEffect, useRef, useState } from "react";
-import { useSnapshot } from "valtio";
 
 interface IVolumeButton {
   onClick?: MouseEventHandler;
@@ -11,14 +10,14 @@ interface IVolumeButton {
 export const VolumeButton: FC<IVolumeButton> = ({
   onClick = () => null
 }) => {
-  const { volume } = useSnapshot(state);
+  const volume = state.use();
 
   let className = 'mute2';
 
-  if (volume > .00) className = 'mute';
-  if (volume > .25) className = 'low';
-  if (volume > 0.5) className = 'medium';
-  if (volume > .75) className = 'high';
+  if (volume == 0) className = 'mute';
+  if (volume > 0) className = 'low';
+  if (volume > 4) className = 'medium';
+  if (volume > 7) className = 'high';
 
 
   const click: MouseEventHandler = (e) => {
@@ -45,15 +44,12 @@ export const VolumeComponent: FC<IVolumeProps> = (props) => {
     show = false,
     onOutsideClick = () => null
   } = props;
-  const { volume } = useSnapshot(state);
+  const volume = state.use();
   const ref = useRef<HTMLDivElement>();
 
   const change = (n = 0) => {
     return () => {
-      let newState = state.volume + n;
-      if (newState < 0) newState = 0;
-      if (newState > 1) newState = 1;
-      state.volume = newState;
+      state.volume = state.volume + n;
     };
   };
 
@@ -70,17 +66,17 @@ export const VolumeComponent: FC<IVolumeProps> = (props) => {
       <div ref={ref as any} className="block">
         <p className="score">
           Volume:
-          <span>  {volume * 100 | 0}%</span>
+          <span>  {volume * 10 | 0}%</span>
         </p>
 
         <div className="space"></div>
         <p className="btns">
           <i
-            onClick={change(-.1)}
+            onClick={change(-1)}
             className='icon-volume-decrease' />
 
           <i
-            onClick={change(.1)} className='icon-volume-increase' />
+            onClick={change(1)} className='icon-volume-increase' />
         </p>
         <div className="space"></div>
         <button onClick={() => Sound.test()}>Test</button>

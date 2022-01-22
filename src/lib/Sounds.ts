@@ -1,23 +1,42 @@
+import { useEffect, useState } from "react";
 import dieSound from "sound/die.wav?url";
 import hitSound from "sound/hit.wav?url";
 import hitPipeSound from "sound/hitPipe.wav?url";
 import pointSound from "sound/point.wav?url";
 import swooshingSound from "sound/swooshing.wav?url";
 import wingSound from "sound/wing.wav?url";
-import { proxy, subscribe } from "valtio";
 
 const audioCtx = new (AudioContext || (window as any)['webkitAudioContext']) as AudioContext;
 const gainNode = audioCtx.createGain();
 
-export const state = proxy({
-  volume: +(localStorage.getItem('save-volume') || 0.5)
-});
+export const state = {
+  _v: +(localStorage.getItem('save-volume') || 5),
+  _d: [] as ((v: number) => any)[],
+  get volume() {
+    return this._v;
+  },
+  set volume(v) {
+    this._v = Math.min(Math.max(v, 0), 10) | 0;
+    this._d.map(e => e && typeof e == 'function' && e(this._v));
+    gainNode.gain.value = this._v * 0.1;
+    localStorage.setItem('save-volume', `${this._v}`);
+    Sound.wing.play();
+  },
+  use() {
+    const [v, setV] = useState(this._v);
 
-subscribe(state, () => {
-  gainNode.gain.value = state.volume;
-  localStorage.setItem('save-volume', `${state.volume}`);
-  Sound.wing.play();
-});
+    this._d.push(setV);
+
+    useEffect(() => {
+      return () => {
+        const i = this._d.indexOf(setV);
+        if (i != -1) this._d.splice(i, 1);
+      };
+    }, []);
+
+    return v;
+  }
+};
 
 gainNode.gain.value = state.volume;
 gainNode.connect(audioCtx.destination);
