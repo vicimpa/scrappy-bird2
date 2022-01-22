@@ -38,7 +38,7 @@ export const state = {
   }
 };
 
-gainNode.gain.value = state.volume;
+gainNode.gain.value = state.volume * 0.1;;
 gainNode.connect(audioCtx.destination);
 
 export class Sound {
