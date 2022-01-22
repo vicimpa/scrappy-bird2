@@ -1,8 +1,8 @@
 import { Game } from "class/Game";
 import * as cfg from "config";
-import { listen } from "lib/Effect";
+import { useEvent } from "hooks/useEvent";
 import { getZoom, isChild, isTouchDevice } from "lib/Utils";
-import { createRef, MouseEventHandler, TouchEventHandler, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { EndComponent } from "./End";
@@ -30,18 +30,18 @@ export const GameComponent = () => {
   //   console.log(e)
   // })
 
-  listen(window, 'resize', () => {
+  useEvent(window, 'resize', () => {
     const newScale = getZoom();
 
     if (scale != newScale)
       setScale(newScale);
   });
 
-  listen(window, 'contextmenu', (e) => {
+  useEvent(window, 'contextmenu', (e) => {
     e.preventDefault();
   });
 
-  listen(window, 'keydown', (e) => {
+  useEvent(window, 'keydown', (e) => {
     e.preventDefault();
 
     if (e.key == ' ' || e.key == 'Space')
@@ -65,37 +65,27 @@ export const GameComponent = () => {
     return () => clearInterval(d);
   });
 
-  useEffect(() => {
-    const click = (e: MouseEvent) => {
-      const showEnd = game.state.stage == 3;
+  useEvent(gameContainer, 'mousedown', e => {
+    const showEnd = game.state.stage == 3;
 
-      if (!showEnd)
-        e.preventDefault();
+    if (!showEnd)
+      e.preventDefault();
 
-      if (isChild(e.target as any, endRef.current as any) && showEnd)
-        return;
+    if (isChild(e.target as any, endRef.current as any) && showEnd)
+      return;
 
-      if (!isTouchDevice() && e.button == 0)
-        game.click();
-    };
-
-    const touch = (e: TouchEvent) => {
-      const showEnd = game.state.stage == 3;
-
-      if (!showEnd)
-        e.preventDefault();
-
+    if (!isTouchDevice() && e.button == 0)
       game.click();
-    };
+  });
 
-    gameContainer.current?.addEventListener('mousedown', click);
-    gameContainer.current?.addEventListener('touchstart', touch);
+  useEvent(gameContainer, 'touchstart', e => {
+    const showEnd = game.state.stage == 3;
 
-    return () => {
-      gameContainer.current?.removeEventListener('mousedown', click);
-      gameContainer.current?.removeEventListener('touchstart', touch);
-    };
-  }, []);
+    if (!showEnd)
+      e.preventDefault();
+
+    game.click();
+  });
 
   return (
     <div style={style as any} ref={gameContainer} className="game">
