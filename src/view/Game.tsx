@@ -21,18 +21,14 @@ export const GameComponent = () => {
   const endRef = useRef();
 
   const getBlockClick = useCallback(() => {
-    return stage == 3 || showVolume;
-  }, [stage, showVolume]);
+    return game.state.stage == 3 || showVolume;
+  }, [game.state.stage, showVolume]);
 
   const style: any = {
     transform: `scale(${scale})`,
     width: `${cfg.game.width * cfg.zoom}px`,
     height: `${cfg.game.height * cfg.zoom}px`
   };
-
-  // listen(window, 'DOMNodeInserted' as any, (e) => {
-  //   console.log(e)
-  // })
 
   useEvent(window, 'resize', () => {
     const newScale = getZoom();
@@ -72,10 +68,12 @@ export const GameComponent = () => {
   useEvent(gameContainer, 'mousedown', e => {
     const block = getBlockClick();
 
+    if (!block)
+      e.preventDefault();
+
     if (isChild(e.target as any, endRef.current as any) && block)
       return;
 
-    e.preventDefault();
 
     if (!isTouchDevice() && e.button == 0)
       game.click();
@@ -84,9 +82,12 @@ export const GameComponent = () => {
   useEvent(gameContainer, 'touchstart', e => {
     const block = getBlockClick();
 
+    if (!block)
+      e.preventDefault();
+
     if (block) return;
 
-    e.preventDefault();
+
     game.click();
   });
 
