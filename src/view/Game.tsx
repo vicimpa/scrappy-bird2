@@ -15,7 +15,8 @@ export const GameComponent = () => {
   const [scale, setScale] = useState(getZoom());
   const [showVolume, setShowVolume] = useState(false);
   const { stage, score, hiscore } = useSnapshot(game.state);
-  const scoreRef = createRef<HTMLParagraphElement>();
+  const scoreRef = useRef<HTMLParagraphElement>();
+  const gameContainer = useRef<HTMLDivElement>();
   const showEnd = stage == 3;
   const endRef = useRef();
 
@@ -64,26 +65,40 @@ export const GameComponent = () => {
     return () => clearInterval(d);
   });
 
-  const click: MouseEventHandler = (e) => {
-    if (!showEnd)
-      e.preventDefault();
+  useEffect(() => {
+    const click = (e: MouseEvent) => {
+      const showEnd = game.state.stage == 3;
 
-    if (isChild(e.target as any, endRef.current as any) && showEnd)
-      return;
+      if (!showEnd)
+        e.preventDefault();
 
-    if (!isTouchDevice() && e.button == 0)
+      if (isChild(e.target as any, endRef.current as any) && showEnd)
+        return;
+
+      if (!isTouchDevice() && e.button == 0)
+        game.click();
+    };
+
+    const touch = (e: TouchEvent) => {
+      const showEnd = game.state.stage == 3;
+
+      if (!showEnd)
+        e.preventDefault();
+
       game.click();
-  };
+    };
 
-  const touch: TouchEventHandler = (e) => {
-    if (!showEnd)
-      e.preventDefault();
+    gameContainer.current?.addEventListener('mousedown', click);
+    gameContainer.current?.addEventListener('touchstart', touch);
 
-    game.click();
-  };
+    return () => {
+      gameContainer.current?.removeEventListener('mousedown', click);
+      gameContainer.current?.removeEventListener('touchstart', touch);
+    };
+  }, []);
 
   return (
-    <div style={style as any} onMouseDown={click} onTouchStart={touch} className="game">
+    <div style={style as any} ref={gameContainer} className="game">
       <VolumeButton onClick={() => setShowVolume(!showVolume)} />
 
       {game.display.render()}
