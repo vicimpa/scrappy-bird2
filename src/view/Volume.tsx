@@ -51,16 +51,17 @@ export const VolumeComponent = forwardRef<HTMLDivElement, IVolumeProps>((props, 
     };
   };
 
-  const down: MouseEventHandler = (e) => {
+  // TODO Передела сцуко!
+  const down = ((e: Event) => {
     if (isOutside(e.target as any, (ref as any)?.current as any))
-      return onOutsideClick(e);
+      return onOutsideClick(e as any);
 
     if (show)
       e.stopPropagation();
-  };
+  }) as any;
 
   return (
-    <div onMouseDown={down} style={{ '--zoom': zoom } as any} data-show={show} className="volume">
+    <div onMouseDown={down} onTouchStart={down} style={{ '--zoom': zoom } as any} data-show={show} className="volume">
       <div ref={ref as any} className="block">
         <p className="score">
           Volume:
