@@ -14,11 +14,10 @@ export const VolumeButton: FC<IVolumeButton> = ({
 
   let className = 'mute2';
 
-  if (volume == 0) className = 'mute';
-  if (volume > 0) className = 'low';
+  if (volume > 0) className = 'mute';
+  if (volume > 2) className = 'low';
   if (volume > 4) className = 'medium';
-  if (volume > 7) className = 'high';
-
+  if (volume > 6) className = 'high';
 
   const click: MouseEventHandler = (e) => {
     e.preventDefault();
