@@ -41,11 +41,8 @@ export const GameComponent = () => {
   useEvent(window, 'keydown', (e) => {
     e.preventDefault();
 
-    if (e.key == ' ' || e.key == 'Space')
-      game.click();
-
-    if (e.key == 'Enter' && stage == 3)
-      game.reset();
+    if (game.state.stage == 3) game.reset();
+    else game.click();
   });
 
   useEffect(() => {
