@@ -39,6 +39,18 @@ html, body, #app
   100%
     transform: translateY(0) scale(calc(1 * var(--zoom)))
 
+.volume-btn
+  position: absolute
+  top: 10px
+  right: 10px
+  z-index: 999
+  color: #fff
+  padding: 8px
+  background-color: #E56B08
+  border: calc(1px * var(--zoom)) solid #5E3600
+  border-bottom-width: calc(2px * var(--zoom))
+  cursor: pointer
+
 .game
   position: absolute
 
@@ -48,18 +60,6 @@ html, body, #app
   bottom: 0
 
   margin: auto
-
-  .volume-btn
-    position: absolute
-    top: 10px
-    right: 10px
-    z-index: 999
-    color: #fff
-    padding: 8px
-    background-color: #E56B08
-    border: calc(1px * var(--zoom)) solid #5E3600
-    border-bottom-width: calc(2px * var(--zoom))
-    cursor: pointer
 
   .up, .down
     position: absolute

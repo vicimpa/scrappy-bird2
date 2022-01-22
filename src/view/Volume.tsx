@@ -1,7 +1,7 @@
 import { zoom } from "config";
 import { isOutside } from "lib/Outside";
 import { Sound, state } from "lib/Sounds";
-import { FC, MouseEventHandler, useRef } from "react";
+import { FC, MouseEventHandler, useEffect, useRef, useState } from "react";
 import { useSnapshot } from "valtio";
 
 interface IVolumeButton {
@@ -19,6 +19,7 @@ export const VolumeButton: FC<IVolumeButton> = ({
   if (volume > .25) className = 'low';
   if (volume > 0.5) className = 'medium';
   if (volume > .75) className = 'high';
+
 
   const click: MouseEventHandler = (e) => {
     e.preventDefault();

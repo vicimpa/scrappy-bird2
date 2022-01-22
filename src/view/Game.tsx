@@ -2,7 +2,7 @@ import { Game } from "class/Game";
 import * as cfg from "config";
 import { useEvent } from "hooks/useEvent";
 import { getZoom, isChild, isTouchDevice } from "lib/Utils";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSnapshot } from "valtio";
 
 import { EndComponent } from "./End";
@@ -19,6 +19,10 @@ export const GameComponent = () => {
   const gameContainer = useRef<HTMLDivElement>();
   const showEnd = stage == 3;
   const endRef = useRef();
+
+  const getBlockClick = useCallback(() => {
+    return stage == 3 || showVolume;
+  }, [stage, showVolume]);
 
   const style: any = {
     transform: `scale(${scale})`,
@@ -66,44 +70,45 @@ export const GameComponent = () => {
   });
 
   useEvent(gameContainer, 'mousedown', e => {
-    const showEnd = game.state.stage == 3;
+    const block = getBlockClick();
 
-    if (!showEnd)
-      e.preventDefault();
-
-    if (isChild(e.target as any, endRef.current as any) && showEnd)
+    if (isChild(e.target as any, endRef.current as any) && block)
       return;
+
+    e.preventDefault();
 
     if (!isTouchDevice() && e.button == 0)
       game.click();
   });
 
   useEvent(gameContainer, 'touchstart', e => {
-    const showEnd = game.state.stage == 3;
+    const block = getBlockClick();
 
-    if (!showEnd)
-      e.preventDefault();
+    if (block) return;
 
+    e.preventDefault();
     game.click();
   });
 
   return (
-    <div style={style as any} ref={gameContainer} className="game">
+    <>
       <VolumeButton onClick={() => setShowVolume(!showVolume)} />
 
-      {game.display.render()}
+      <div style={style as any} ref={gameContainer} className="game">
+        {game.display.render()}
 
-      <div data-show={stage == 1 || stage == 2} className="debug">
-        <p ref={scoreRef}>{score}</p>
+        <div data-show={stage == 1 || stage == 2} className="debug">
+          <p ref={scoreRef}>{score}</p>
+        </div>
+        <StartComponent show={stage == 0} />
+        <EndComponent ref={endRef as any} show={showEnd} score={score} hiscore={hiscore}>
+          <button onClick={game.reset}>Restart (Enter)</button>
+          <button onClick={game.github}>Github</button>
+        </EndComponent>
+        <VolumeComponent
+          onOutsideClick={() => setShowVolume(false)}
+          show={showVolume} />
       </div>
-      <StartComponent show={stage == 0} />
-      <EndComponent ref={endRef as any} show={showEnd} score={score} hiscore={hiscore}>
-        <button onClick={game.reset}>Restart (Enter)</button>
-        <button onClick={game.github}>Github</button>
-      </EndComponent>
-      <VolumeComponent
-        onOutsideClick={() => setShowVolume(false)}
-        show={showVolume} />
-    </div>
+    </>
   );
 };
