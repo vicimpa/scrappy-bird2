@@ -1,7 +1,7 @@
 import { zoom } from "config";
 import { isOutside } from "lib/Outside";
 import { Sound, state } from "lib/Sounds";
-import { FC, MouseEventHandler, useEffect, useRef, useState } from "react";
+import { FC, forwardRef, MouseEventHandler, useEffect, useRef, useState } from "react";
 
 interface IVolumeButton {
   onClick?: MouseEventHandler;
@@ -38,13 +38,12 @@ interface IVolumeProps {
   onOutsideClick?: MouseEventHandler;
 }
 
-export const VolumeComponent: FC<IVolumeProps> = (props) => {
+export const VolumeComponent = forwardRef<HTMLDivElement, IVolumeProps>((props, ref) => {
   const {
     show = false,
     onOutsideClick = () => null
   } = props;
   const volume = state.use();
-  const ref = useRef<HTMLDivElement>();
 
   const change = (n = 0) => {
     return () => {
@@ -53,7 +52,7 @@ export const VolumeComponent: FC<IVolumeProps> = (props) => {
   };
 
   const down: MouseEventHandler = (e) => {
-    if (isOutside(e.target as any, ref.current as any))
+    if (isOutside(e.target as any, (ref as any)?.current as any))
       return onOutsideClick(e);
 
     if (show)
@@ -83,4 +82,4 @@ export const VolumeComponent: FC<IVolumeProps> = (props) => {
       </div>
     </div>
   );
-};
+});

@@ -18,11 +18,8 @@ export const GameComponent = () => {
   const scoreRef = useRef<HTMLParagraphElement>();
   const gameContainer = useRef<HTMLDivElement>();
   const showEnd = stage == 3;
-  const endRef = useRef();
-
-  const getBlockClick = useCallback(() => {
-    return game.state.stage == 3 || showVolume;
-  }, [game.state.stage, showVolume]);
+  const endRef = useRef<HTMLDivElement>();
+  const volumeRef = useRef<HTMLDivElement>();
 
   const style: any = {
     transform: `scale(${scale})`,
@@ -66,28 +63,20 @@ export const GameComponent = () => {
   });
 
   useEvent(gameContainer, 'mousedown', e => {
-    const block = getBlockClick();
-
-    if (!block)
-      e.preventDefault();
-
-    if (isChild(e.target as any, endRef.current as any) && block)
+    if (isChild(e.target as any, endRef.current as any) || isChild(e.target as any, volumeRef.current as any))
       return;
 
+    e.preventDefault();
 
     if (!isTouchDevice() && e.button == 0)
       game.click();
   });
 
   useEvent(gameContainer, 'touchstart', e => {
-    const block = getBlockClick();
+    if (isChild(e.target as any, endRef.current as any) || isChild(e.target as any, volumeRef.current as any))
+      return;
 
-    if (!block)
-      e.preventDefault();
-
-    if (block) return;
-
-
+    e.preventDefault();
     game.click();
   });
 
@@ -107,6 +96,7 @@ export const GameComponent = () => {
           <button onClick={game.github}>Github</button>
         </EndComponent>
         <VolumeComponent
+          ref={volumeRef}
           onOutsideClick={() => setShowVolume(false)}
           show={showVolume} />
       </div>
