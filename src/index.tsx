@@ -4,7 +4,7 @@ import { createDOM } from "lib/Utils";
 import { render } from "react-dom";
 import { GameComponent } from "view/Game";
 
-import { isPWA } from "../config";
+const { isPWA } = require('../config');
 
 const app = document.getElementById('app');
 render(<GameComponent />, app);

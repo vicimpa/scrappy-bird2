@@ -4,10 +4,10 @@ import { defineConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 import paths from "vite-tsconfig-paths";
 
-import { outDir } from "./config";
+import { isPWA, outDir } from "./config";
 
 export default defineConfig({
-  publicDir: './public',
+  publicDir: isPWA ? './public' : 'myFakeDir',
   base: './',
   build: {
     outDir,
