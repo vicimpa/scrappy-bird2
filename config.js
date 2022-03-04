@@ -1,2 +1,2 @@
-exports.outDir = '../app/src/main/assets'
+exports.outDir = 'dist'
 exports.isPWA = true
