@@ -2,7 +2,7 @@ const { readFileSync, rmSync, writeFileSync } = require('fs')
 const { join } = require('path')
 const { outDir } = require('./config')
 
-rmSync('./dist/assets', { recursive: true, force: true })
+rmSync(join(outDir, 'assets'), { recursive: true, force: true })
 const fileData = readFileSync(join(outDir, 'index.html'), 'utf-8')
 
 // writeFileSync('./dist/index.ord.html', fileData)

@@ -4,10 +4,12 @@ import { createDOM } from "lib/Utils";
 import { render } from "react-dom";
 import { GameComponent } from "view/Game";
 
+import { isPWA } from "../config";
+
 const app = document.getElementById('app');
 render(<GameComponent />, app);
 
-if (location.protocol == 'https:') {
+if (isPWA && location.protocol == 'https:') {
   const appendTo = document.head;
 
   createDOM('link', { rel: 'manifest', href: './manifest.json', appendTo });

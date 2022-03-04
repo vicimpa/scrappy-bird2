@@ -7,7 +7,7 @@
       "DOM.Iterable",
       "ESNext"
     ],
-    "allowJs": false,
+    "allowJs": true,
     "skipLibCheck": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
@@ -20,7 +20,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "./src",
-    "rootDir": "./src",
     "experimentalDecorators": true
   },
   "include": [
