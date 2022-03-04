@@ -1,5 +1,6 @@
 import "index.sass";
 
+import { createDOM } from "lib/Utils";
 import { render } from "react-dom";
 import { GameComponent } from "view/Game";
 
@@ -7,10 +8,10 @@ const app = document.getElementById('app');
 render(<GameComponent />, app);
 
 if (location.protocol == 'https:') {
-  document.head.innerHTML += (`
-    <link rel="manifest" href="./manifest.json">
-    <link rel="shortcut icon" href="favicon.png" type="image/png">
-  `);
+  const appendTo = document.head;
+
+  createDOM('link', { rel: 'manifest', href: './manifest.json', appendTo });
+  createDOM('link', { rel: 'shortcut icon', href: 'favicon.png', type: 'image/png', appendTo });
 
   addEventListener("load", () => {
     if (navigator.serviceWorker) {
