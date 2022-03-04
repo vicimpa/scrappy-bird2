@@ -4,11 +4,13 @@ import { defineConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 import paths from "vite-tsconfig-paths";
 
+import { outDir } from "./config";
+
 export default defineConfig({
   publicDir: './public',
   base: './',
   build: {
-    outDir: 'dist',
+    outDir,
     emptyOutDir: true,
     assetsInlineLimit: 10000000000,
     rollupOptions: {

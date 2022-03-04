@@ -1,0 +1,1 @@
+exports.outDir = 'dist'
