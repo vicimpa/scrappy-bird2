@@ -1,4 +1,4 @@
-import { game, github, hiscoreKey, road, zoom } from "config";
+import { game, github, hiscoreKey, road } from "config";
 import { Codes } from "lib/Codes";
 import { Sound } from "lib/Sounds";
 import { bind } from "lib/Utils";
@@ -178,7 +178,7 @@ export class Game {
     if (ctx?.imageSmoothingEnabled)
       ctx.imageSmoothingEnabled = false;
 
-    ctx?.clearRect(0, 0, this.width * zoom, this.height * zoom);
+    // ctx?.clearRect(0, 0, this.width * zoom, this.height * zoom);
 
     this.back.render(display);
     this.road.render(display);
