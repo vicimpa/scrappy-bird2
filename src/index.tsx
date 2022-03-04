@@ -24,6 +24,10 @@ if (isPWA && location.protocol == 'https:') {
           }))
         .catch(() => { });
     }
+
+    window.matchMedia(
+      '(display-mode: standalone)'
+    ).matches;
   });
 }
 
