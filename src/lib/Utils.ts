@@ -128,3 +128,22 @@ export function init() {
 
   return decor as any;
 }
+
+interface CreateDOMProps {
+  appendTo: HTMLElement;
+}
+
+export function createDOM<K extends keyof HTMLElementTagNameMap>(tag: K, props?: Partial<HTMLElementTagNameMap[K] & CreateDOMProps> | null, ...childs: HTMLElement[]) {
+  const elem = document.createElement<K>(tag);
+  const { appendTo, ...p } = props ?? {};
+
+  toObject(p as any, elem);
+
+  for (const child of childs)
+    elem.appendChild(child);
+
+  if (appendTo)
+    appendTo.appendChild(elem);
+
+  return elem;
+}
