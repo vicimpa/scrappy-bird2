@@ -102,6 +102,12 @@ export class Game {
   }
 
   @bind()
+  destroy() {
+    this.work = false;
+    Codes.del('qwerty');
+  }
+
+  @bind()
   addPipe() {
     this.objects.push(new Pipe(this));
   }
@@ -167,11 +173,12 @@ export class Game {
   render() {
     const { display, objects } = this;
     const { length } = objects;
+    const { can, ctx, top, topCtx, bottom, bottomCtx } = display;
 
-    if (display.ctx?.imageSmoothingEnabled)
-      display.ctx.imageSmoothingEnabled = false;
+    if (ctx?.imageSmoothingEnabled)
+      ctx.imageSmoothingEnabled = false;
 
-    display.ctx?.clearRect(0, 0, this.width * zoom, this.height * zoom);
+    ctx?.clearRect(0, 0, this.width * zoom, this.height * zoom);
 
     this.back.render(display);
     this.road.render(display);
@@ -183,6 +190,8 @@ export class Game {
 
     this.bird.render(display);
     this.debug.render(display);
+    topCtx?.drawImage(can, 0, 0, can.width, 1, 0, 0, can.width, top.height);
+    bottomCtx?.drawImage(can, 0, can.height - 1, can.width, 1, 0, 0, can.width, bottom.height);
 
     if (this.work)
       return requestAnimationFrame(this.update);

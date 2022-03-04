@@ -9,9 +9,9 @@ import { EndComponent } from "./End";
 import { StartComponent } from "./Start";
 import { VolumeButton, VolumeComponent } from "./Volume";
 
-const game = new Game();
 
 export const GameComponent = () => {
+  const [game] = useState(() => new Game());
   const [scale, setScale] = useState(getZoom());
   const [showVolume, setShowVolume] = useState(false);
   const { stage, score, hiscore } = useSnapshot(game.state);
@@ -20,6 +20,10 @@ export const GameComponent = () => {
   const showEnd = stage == 3;
   const endRef = useRef<HTMLDivElement>();
   const volumeRef = useRef<HTMLDivElement>();
+
+  useEffect(() => {
+    return game.destroy;
+  }, [game]);
 
   const style: any = {
     transform: `scale(${scale})`,
