@@ -1,10 +1,9 @@
 @font-face {
   font-family: 'volume';
-  src:  url('../fonts/volume.eot?4eric3');
-  src:  url('../fonts/volume.eot?4eric3#iefix') format('embedded-opentype'),
-    url('../fonts/volume.ttf?4eric3') format('truetype'),
-    url('../fonts/volume.woff?4eric3') format('woff'),
-    url('../fonts/volume.svg?4eric3#volume') format('svg');
+  src:  url('../fonts/volume.eot');
+  src:  url('../fonts/volume.eot') format('embedded-opentype'),
+    url('../fonts/volume.ttf') format('truetype'),
+    url('../fonts/volume.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
