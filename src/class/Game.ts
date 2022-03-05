@@ -25,6 +25,7 @@ export class Game {
       return isNaN(hiscore) ? 0 : hiscore;
     })()
   });
+  scale = 1;
 
   width = game.width;
   height = game.height;
@@ -54,6 +55,11 @@ export class Game {
 
   work = true;
   last = performance.now();
+
+  @bind()
+  setScale(num = 1) {
+    this.scale = num;
+  }
 
   @bind()
   click() {
@@ -171,15 +177,16 @@ export class Game {
 
   @bind()
   render() {
-    const { display, objects } = this;
+    const { display, objects, scale } = this;
     const { length } = objects;
-    const { can, ctx, top, topCtx, bottom, bottomCtx } = display;
+    const { can, ctx } = display;
 
     if (ctx?.imageSmoothingEnabled)
       ctx.imageSmoothingEnabled = false;
 
     // ctx?.clearRect(0, 0, this.width * zoom, this.height * zoom);
-
+    console.log(this.scale);
+    ctx?.setTransform(scale, 0, 0, scale, 0, 0);
     this.back.render(display);
     this.road.render(display);
 
@@ -190,8 +197,6 @@ export class Game {
 
     this.bird.render(display);
     this.debug.render(display);
-    topCtx?.drawImage(can, 0, 0, can.width, 1, 0, 0, can.width, top.height);
-    bottomCtx?.drawImage(can, 0, can.height - 1, can.width, 1, 0, 0, can.width, bottom.height);
 
     if (this.work)
       return requestAnimationFrame(this.update);

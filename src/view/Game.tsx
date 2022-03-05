@@ -1,6 +1,7 @@
 import { Game } from "class/Game";
 import * as cfg from "config";
 import { useEvent } from "hooks/useEvent";
+import { ScaleProvider } from "lib/Scale";
 import { getZoom, isChild, isTouchDevice } from "lib/Utils";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSnapshot } from "valtio";
@@ -26,17 +27,22 @@ export const GameComponent = () => {
   }, [game]);
 
   const style: any = {
-    transform: `scale(${scale})`,
-    width: `${cfg.game.width * cfg.zoom}px`,
-    height: `${cfg.game.height * cfg.zoom}px`
+    // transform: `scale(${scale})`,
+    width: `${cfg.game.width * cfg.zoom * scale}px`,
+    height: `${cfg.game.height * cfg.zoom * scale}px`
   };
 
   useEvent(window, 'resize', () => {
     const newScale = getZoom();
 
-    if (scale != newScale)
+    if (scale != newScale) {
       setScale(newScale);
+    }
   });
+
+  useEffect(() => {
+    game.setScale(scale);
+  }, [scale]);
 
   useEvent(window, 'contextmenu', (e) => {
     e.preventDefault();
@@ -82,13 +88,13 @@ export const GameComponent = () => {
   });
 
   return (
-    <>
+    <ScaleProvider value={scale}>
       <VolumeButton onClick={() => setShowVolume(!showVolume)} />
 
       <div style={style as any} ref={gameContainer} className="game">
-        {game.display.render()}
+        {game.display.render(scale)}
 
-        <div data-show={stage == 1 || stage == 2} className="debug">
+        <div style={{ transform: `scale(${scale})` }} data-show={stage == 1 || stage == 2} className="debug">
           <p ref={scoreRef}>{score}</p>
         </div>
         <StartComponent show={stage == 0} />
@@ -101,6 +107,6 @@ export const GameComponent = () => {
           onOutsideClick={() => setShowVolume(false)}
           show={showVolume} />
       </div>
-    </>
+    </ScaleProvider>
   );
 };
