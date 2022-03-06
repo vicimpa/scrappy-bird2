@@ -1,4 +1,4 @@
-import { road, zoom } from "config";
+import { road } from "config";
 import roadImage from "img/road.png";
 import { Display } from "view/Display";
 
@@ -41,16 +41,14 @@ export class Road extends Entity {
     const xdiv1 = position;
     const xdiv2 = width - xdiv1;
 
-    const zWidth = width * zoom;
-    const zHeight = height * zoom;
-    const ydiv1 = game.height * zoom - zHeight;
+    const ydiv1 = game.height - height;
 
     ctx?.drawImage(image,
       0, height * color, width, height,
-      -xdiv1 * zoom, ydiv1, zWidth, zHeight);
+      -xdiv1, ydiv1, width, height);
 
     ctx?.drawImage(image,
       0, height * color, width, height,
-      xdiv2 * zoom - 1, ydiv1, zWidth, zHeight);
+      xdiv2 - 1, ydiv1, width, height);
   }
 }

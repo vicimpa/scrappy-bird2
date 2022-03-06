@@ -1,8 +1,8 @@
-import { zoom } from "config";
 import { isOutside } from "lib/Outside";
 import { useScale } from "lib/Scale";
 import { Sound, state } from "lib/Sounds";
 import { FC, forwardRef, MouseEventHandler, useEffect, useRef, useState } from "react";
+
 
 interface IVolumeButton {
   onClick?: MouseEventHandler;
@@ -30,7 +30,6 @@ export const VolumeButton: FC<IVolumeButton> = ({
   return (
     <i
       style={{
-        ['--zoom']: zoom,
         transform: `matrix(${scale}, 0, 0, ${scale}, ${-14 * scale}, ${14 * scale})`
       } as any}
       onMouseDown={click}
@@ -70,7 +69,7 @@ export const VolumeComponent = forwardRef<HTMLDivElement, IVolumeProps>((props, 
     <div
       onMouseDown={down}
       onTouchStart={down}
-      style={{ '--zoom': zoom, transform: `scale${scale}` } as any}
+      style={{ transform: `scale${scale}` } as any}
       data-show={show}
       className="volume"
     >

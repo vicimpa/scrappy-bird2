@@ -1,7 +1,7 @@
 import { game, github, hiscoreKey, road } from "config";
 import { Codes } from "lib/Codes";
 import { Sound } from "lib/Sounds";
-import { bind } from "lib/Utils";
+import { bind, state } from "lib/Utils";
 import { proxy, subscribe } from "valtio";
 import { Display } from "view/Display";
 
@@ -10,6 +10,7 @@ import { Bird } from "./Bird";
 import { Debug } from "./Debug";
 import { Pipe } from "./Pipe";
 import { Road } from "./Road";
+import { Start } from "./Start";
 
 const initialState = {
   score: 0,
@@ -46,6 +47,7 @@ export class Game {
     });
   }
 
+  start = Start.init(this);
   back = Back.init(this);
   road = Road.init(this);
   bird = Bird.init(this);
@@ -99,6 +101,7 @@ export class Game {
     this.objects.splice(0);
     this.bird.reset();
     this.back.reset();
+    this.start.reset();
     Sound.swooshing.play();
   }
 
@@ -168,6 +171,7 @@ export class Game {
 
     this.bird.update(delta, time);
     this.debug.update(delta, time);
+    this.start.update(delta, time);
 
     if (delta > 100 && this.work)
       return requestAnimationFrame(this.update);
@@ -185,7 +189,6 @@ export class Game {
       ctx.imageSmoothingEnabled = false;
 
     // ctx?.clearRect(0, 0, this.width * zoom, this.height * zoom);
-    console.log(this.scale);
     ctx?.setTransform(scale, 0, 0, scale, 0, 0);
     this.back.render(display);
     this.road.render(display);
@@ -197,6 +200,7 @@ export class Game {
 
     this.bird.render(display);
     this.debug.render(display);
+    this.start.render(display);
 
     if (this.work)
       return requestAnimationFrame(this.update);

@@ -1,5 +1,4 @@
 import { Game } from "class/Game";
-import { zoom } from "config";
 import { Component, createRef, useState } from "react";
 
 interface MyCan extends HTMLCanvasElement {
@@ -13,8 +12,8 @@ export class Display extends Component {
   #bottom = createRef<MyCan>();
 
   get can(): MyCan {
-    this.#fakeCan.width = this.game.width * zoom;
-    this.#fakeCan.height = this.game.height * zoom;
+    this.#fakeCan.width = this.game.width;
+    this.#fakeCan.height = this.game.height;
     return this.#can.current || this.#fakeCan;
   }
 
@@ -33,8 +32,8 @@ export class Display extends Component {
         <canvas
           className="main"
           onMouseDown={this.game.click}
-          width={this.game.width * zoom * scale}
-          height={this.game.height * zoom * scale}
+          width={this.game.width * scale}
+          height={this.game.height * scale}
           ref={this.#can} />
       </>
     );

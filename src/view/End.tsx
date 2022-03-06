@@ -1,4 +1,3 @@
-import { zoom } from "config";
 import { useScale } from "lib/Scale";
 import { forwardRef, PropsWithChildren, RefObject, useEffect, useRef } from "react";
 
@@ -36,7 +35,7 @@ export const EndComponent = forwardRef<HTMLElement, IEndProps>((props, ref) => {
 
   return (
     <div
-      style={{ '--zoom': zoom, transform: `scale(${scale})` } as any}
+      style={{ transform: `scale(${scale})` } as any}
       data-show={show}
       className="end"
     >

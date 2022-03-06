@@ -1,4 +1,4 @@
-import { bird, zoom } from "config";
+import { bird } from "config";
 import birdImage from "img/bird.png";
 import { Sound } from "lib/Sounds";
 import { rand } from "lib/Utils";
@@ -171,14 +171,12 @@ export class Bird extends Entity {
 
     const { image, x, y, width, height } = this;
     const { color, frame, death } = this;
-    const zWidth = width * zoom;
-    const zHeight = height * zoom;
 
-    const nX = x * zoom;
-    const nY = y * zoom;
+    const nX = x;
+    const nY = y;
 
-    const dX = zWidth * .5;
-    const dY = zHeight * .5;
+    const dX = width * .5;
+    const dY = height * .5;
 
     ctx?.beginPath();
 
@@ -189,7 +187,7 @@ export class Bird extends Entity {
     ctx?.drawImage(image,
       width * frame + width * 3 * death,
       color * height, width, height,
-      -dX, -dY, zWidth, zHeight);
+      -dX, -dY, width, height);
 
     ctx?.rotate(-this.rotate);
     ctx?.translate(-nX - dX, -nY - dY);
