@@ -35,7 +35,7 @@ export const EndComponent = forwardRef<HTMLElement, IEndProps>((props, ref) => {
 
   return (
     <div
-      style={{ transform: `scale(${scale})` } as any}
+      style={{ ['--zoom']: 2, transform: `scale(${scale - 2})` } as any}
       data-show={show}
       className="end"
     >
