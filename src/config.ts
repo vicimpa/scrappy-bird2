@@ -1,9 +1,12 @@
-export const zoom = 2;
-
 export const game = {
   width: 144,
   height: 256,
   speed: 3000
+};
+
+export const start = {
+  width: 57,
+  height: 49
 };
 
 export const pipe = {
