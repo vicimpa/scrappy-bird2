@@ -10,6 +10,7 @@ import { Bird } from "./Bird";
 import { Debug } from "./Debug";
 import { Pipe } from "./Pipe";
 import { Road } from "./Road";
+import { Score } from "./Score";
 import { Start } from "./Start";
 
 const initialState = {
@@ -53,6 +54,7 @@ export class Game {
   road = Road.init(this);
   bird = Bird.init(this);
   debug = Debug.init(this);
+  score = Score.init(this);
 
   objects: Pipe[] = [];
 
@@ -102,6 +104,7 @@ export class Game {
     this.bird.reset();
     this.back.reset();
     this.start.reset();
+    this.score.reset();
     Sound.swooshing.play();
   }
 
@@ -172,6 +175,7 @@ export class Game {
     this.bird.update(delta, time);
     this.debug.update(delta, time);
     this.start.update(delta, time);
+    this.score.update(delta, time);
 
     if (delta > 100 && this.work)
       return requestAnimationFrame(this.update);
@@ -200,6 +204,7 @@ export class Game {
     this.bird.render(display);
     this.debug.render(display);
     this.start.render(display);
+    this.score.render(display);
 
     if (this.work)
       return requestAnimationFrame(this.update);

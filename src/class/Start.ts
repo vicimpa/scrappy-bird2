@@ -14,6 +14,7 @@ export class Start extends Entity {
 
   colors = 0;
   scale = 1;
+  start = performance.now();
 
   init() {
     this.image = new Image();
@@ -26,11 +27,12 @@ export class Start extends Entity {
     return super.init();
   }
 
-  reset() {
+  reset(): void {
+    this.start = performance.now();
   }
 
   update(delta: number, time: number) {
-    const perf = time % 2000 * .003;
+    const perf = (time - this.start) % 2000 * .003;
     const sin = 1 - Math.abs((perf < 1 ? perf : 0) - .5);
     this.game.debug.set('sin', sin);
     this.scale = sin;

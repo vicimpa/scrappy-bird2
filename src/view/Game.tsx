@@ -95,9 +95,6 @@ export const GameComponent = () => {
       <div onMouseDown={onMouseDown} onTouchStart={onTouchStart} style={style as any} ref={gameContainer} className="game">
         {game.display.render(scale)}
 
-        <div style={{ transform: `scale(${scale})` }} data-show={stage == 1 || stage == 2} className="debug">
-          <p ref={scoreRef}>{score}</p>
-        </div>
         <EndComponent ref={endRef as any} show={showEnd} score={score} hiscore={hiscore}>
           <button onClick={game.reset}>Restart (Enter)</button>
           <button onClick={game.github}>Github</button>
