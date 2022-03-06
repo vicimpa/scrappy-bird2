@@ -47,6 +47,7 @@ export class Game {
     });
   }
 
+  time = performance.now();
   start = Start.init(this);
   back = Back.init(this);
   road = Road.init(this);
@@ -56,7 +57,6 @@ export class Game {
   objects: Pipe[] = [];
 
   work = true;
-  last = performance.now();
 
   @bind()
   setScale(num = 1) {
@@ -147,8 +147,8 @@ export class Game {
   @bind()
   update() {
     const time = performance.now();
-    const delta = time - this.last;
-    this.last = time;
+    const delta = time - this.time;
+    this.time = time;
 
     const { objects } = this;
     const { length } = objects;

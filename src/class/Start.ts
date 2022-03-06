@@ -13,6 +13,7 @@ export class Start extends Entity {
   speed = game.width / game.speed;
 
   colors = 0;
+  scale = 1;
 
   init() {
     this.image = new Image();
@@ -29,21 +30,30 @@ export class Start extends Entity {
   }
 
   update(delta: number, time: number) {
+    const perf = time % 2000 * .003;
+    const sin = 1 - Math.abs((perf < 1 ? perf : 0) - .5);
+    this.game.debug.set('sin', sin);
+    this.scale = sin;
   }
 
   render({ ctx }: Display) {
     if (!this.ready) return;
 
-    const { width, height } = this;
-    const { image } = this;
+    const { width, height, scale } = this;
+    const { image, game } = this;
 
     const [cX, cY] = [
       this.game.width * .5,
       this.game.height * .5,
     ];
 
-    ctx?.drawImage(image,
-      0, 0, width, height,
-      cX - width * .5, cY - height * .5, width, height);
+    if (game.state.stage == 0) {
+      ctx?.save();
+      ctx?.transform(1, 0, 0, 1, 0, scale * 10);
+      ctx?.drawImage(image,
+        0, 0, width, height,
+        cX - width * .5, cY - height * .5, width, height);
+      ctx?.restore();
+    }
   }
 }
