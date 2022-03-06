@@ -188,7 +188,6 @@ export class Game {
     if (ctx?.imageSmoothingEnabled)
       ctx.imageSmoothingEnabled = false;
 
-    // ctx?.clearRect(0, 0, this.width * zoom, this.height * zoom);
     ctx?.setTransform(scale, 0, 0, scale, 0, 0);
     this.back.render(display);
     this.road.render(display);
