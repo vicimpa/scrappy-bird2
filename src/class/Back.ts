@@ -1,4 +1,4 @@
-import { game, zoom } from "config";
+import { game } from "config";
 import backImg from "img/back.png";
 import { rand } from "lib/Utils";
 import { Display } from "view/Display";
@@ -51,15 +51,13 @@ export class Back extends Entity {
     const xdiv1 = position;
     const xdiv2 = width - xdiv1;
 
-    const zWidth = width * zoom;
-    const zHeight = height * zoom;
 
     ctx?.drawImage(image,
       0, height * color, width, height,
-      -xdiv1 * zoom, 0, zWidth, zHeight);
+      -xdiv1, 0, width, height);
 
     ctx?.drawImage(image,
       0, height * color, width, height,
-      xdiv2 * zoom - 1, 0, zWidth, zHeight);
+      xdiv2 - 1, 0, width, height);
   }
 }

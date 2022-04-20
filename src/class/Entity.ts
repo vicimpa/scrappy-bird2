@@ -20,6 +20,7 @@ export class Entity {
   update(delta = 0, time = 0) { }
   render(display: Display) { }
   down({ x = 0, y = 0 }) { }
+  reset() { }
   up({ x = 0, y = 0 }) { }
   click({ x = 0, y = 0 }) { }
 

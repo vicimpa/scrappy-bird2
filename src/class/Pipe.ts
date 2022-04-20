@@ -1,4 +1,4 @@
-import { game, pipe, road, zoom } from "config";
+import { game, pipe, road } from "config";
 import pipeImage from "img/pipe.png";
 import { rand } from "lib/Utils";
 import { Display } from "view/Display";
@@ -79,16 +79,14 @@ export class Pipe extends Entity {
 
     const { image, width, height, x, y, door } = this;
 
-    const zWidth = width * zoom;
-    const zHeight = height * zoom;
     const nHeihgt = height - y + 40 - door;
 
     ctx?.drawImage(image,
       width * 0, height * 0, width, height,
-      x * zoom, y * zoom - zHeight, zWidth, zHeight);
+      x, y - height, width, height);
 
     ctx?.drawImage(image,
       width * 1, height * 0, width, nHeihgt,
-      x * zoom, y * zoom + door * zoom, zWidth, nHeihgt * zoom);
+      x, y + door, width, nHeihgt);
   }
 }

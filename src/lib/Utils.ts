@@ -1,5 +1,5 @@
 import { Entity } from "class/Entity";
-import { game, zoom } from "config";
+import { game } from "config";
 
 export function toObject<T>(input: Partial<T>, output: T) {
   if (typeof input != 'object')
@@ -65,7 +65,7 @@ export function isTouchDevice() {
 
 export function toZoom<T extends { [key: string]: number; }>(
   size: T,
-  z: number = zoom
+  z: number = 1
 ): T {
   const newSize: T = { ...size };
 

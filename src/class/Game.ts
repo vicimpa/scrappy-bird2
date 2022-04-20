@@ -1,7 +1,7 @@
 import { game, github, hiscoreKey, road } from "config";
 import { Codes } from "lib/Codes";
 import { Sound } from "lib/Sounds";
-import { bind } from "lib/Utils";
+import { bind, state } from "lib/Utils";
 import { proxy, subscribe } from "valtio";
 import { Display } from "view/Display";
 
@@ -10,6 +10,8 @@ import { Bird } from "./Bird";
 import { Debug } from "./Debug";
 import { Pipe } from "./Pipe";
 import { Road } from "./Road";
+import { Score } from "./Score";
+import { Start } from "./Start";
 
 const initialState = {
   score: 0,
@@ -25,6 +27,7 @@ export class Game {
       return isNaN(hiscore) ? 0 : hiscore;
     })()
   });
+  scale = 1;
 
   width = game.width;
   height = game.height;
@@ -45,15 +48,22 @@ export class Game {
     });
   }
 
+  time = performance.now();
+  start = Start.init(this);
   back = Back.init(this);
   road = Road.init(this);
   bird = Bird.init(this);
   debug = Debug.init(this);
+  score = Score.init(this);
 
   objects: Pipe[] = [];
 
   work = true;
-  last = performance.now();
+
+  @bind()
+  setScale(num = 1) {
+    this.scale = num;
+  }
 
   @bind()
   click() {
@@ -93,6 +103,8 @@ export class Game {
     this.objects.splice(0);
     this.bird.reset();
     this.back.reset();
+    this.start.reset();
+    this.score.reset();
     Sound.swooshing.play();
   }
 
@@ -138,8 +150,8 @@ export class Game {
   @bind()
   update() {
     const time = performance.now();
-    const delta = time - this.last;
-    this.last = time;
+    const delta = time - this.time;
+    this.time = time;
 
     const { objects } = this;
     const { length } = objects;
@@ -162,6 +174,8 @@ export class Game {
 
     this.bird.update(delta, time);
     this.debug.update(delta, time);
+    this.start.update(delta, time);
+    this.score.update(delta, time);
 
     if (delta > 100 && this.work)
       return requestAnimationFrame(this.update);
@@ -171,15 +185,14 @@ export class Game {
 
   @bind()
   render() {
-    const { display, objects } = this;
+    const { display, objects, scale } = this;
     const { length } = objects;
-    const { can, ctx, top, topCtx, bottom, bottomCtx } = display;
+    const { can, ctx } = display;
 
     if (ctx?.imageSmoothingEnabled)
       ctx.imageSmoothingEnabled = false;
 
-    // ctx?.clearRect(0, 0, this.width * zoom, this.height * zoom);
-
+    ctx?.setTransform(scale, 0, 0, scale, 0, 0);
     this.back.render(display);
     this.road.render(display);
 
@@ -190,8 +203,8 @@ export class Game {
 
     this.bird.render(display);
     this.debug.render(display);
-    topCtx?.drawImage(can, 0, 0, can.width, 1, 0, 0, can.width, top.height);
-    bottomCtx?.drawImage(can, 0, can.height - 1, can.width, 1, 0, 0, can.width, bottom.height);
+    this.start.render(display);
+    this.score.render(display);
 
     if (this.work)
       return requestAnimationFrame(this.update);

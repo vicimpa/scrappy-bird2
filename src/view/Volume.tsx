@@ -1,7 +1,8 @@
-import { zoom } from "config";
 import { isOutside } from "lib/Outside";
+import { useScale } from "lib/Scale";
 import { Sound, state } from "lib/Sounds";
 import { FC, forwardRef, MouseEventHandler, useEffect, useRef, useState } from "react";
+
 
 interface IVolumeButton {
   onClick?: MouseEventHandler;
@@ -10,6 +11,7 @@ interface IVolumeButton {
 export const VolumeButton: FC<IVolumeButton> = ({
   onClick = () => null
 }) => {
+  const scale = useScale();
   const volume = state.use();
 
   let className = 'mute2';
@@ -27,7 +29,9 @@ export const VolumeButton: FC<IVolumeButton> = ({
 
   return (
     <i
-      style={{ ['--zoom']: zoom } as any}
+      style={{
+        transform: `matrix(${scale - 2}, 0, 0, ${scale - 2}, ${-14 * (scale - 2)}, ${14 * (scale - 2)})`
+      } as any}
       onMouseDown={click}
       className={`volume-btn icon-volume-${className}`} />
   );
@@ -39,6 +43,7 @@ interface IVolumeProps {
 }
 
 export const VolumeComponent = forwardRef<HTMLDivElement, IVolumeProps>((props, ref) => {
+  const scale = useScale();
   const {
     show = false,
     onOutsideClick = () => null
@@ -61,7 +66,13 @@ export const VolumeComponent = forwardRef<HTMLDivElement, IVolumeProps>((props, 
   }) as any;
 
   return (
-    <div onMouseDown={down} onTouchStart={down} style={{ '--zoom': zoom } as any} data-show={show} className="volume">
+    <div
+      onMouseDown={down}
+      onTouchStart={down}
+      style={{ ['--zoom']: 2, transform: `scale${scale}` } as any}
+      data-show={show}
+      className="volume"
+    >
       <div ref={ref as any} className="block">
         <p className="score">
           Volume:
