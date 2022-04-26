@@ -71,6 +71,7 @@ export const GameComponent = () => {
     if (isChild(e.target as any, endRef.current as any) || isChild(e.target as any, volumeRef.current as any))
       return;
 
+    e.preventDefault();
     game.click();
   }, [game]);
 
