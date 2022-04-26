@@ -31,7 +31,6 @@ export class Display extends Component {
       <>
         <canvas
           className="main"
-          onMouseDown={this.game.click}
           width={this.game.width * scale}
           height={this.game.height * scale}
           ref={this.#can} />

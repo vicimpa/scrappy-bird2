@@ -62,15 +62,15 @@ export const GameComponent = () => {
 
     e.preventDefault();
 
-    if (!isTouchDevice() && e.button == 0)
+    if (!isTouchDevice() && e.button == 0) {
       game.click();
+    }
   }, [game]);
 
   const onTouchStart = useCallback<TouchEventHandler>(e => {
     if (isChild(e.target as any, endRef.current as any) || isChild(e.target as any, volumeRef.current as any))
       return;
 
-    e.preventDefault();
     game.click();
   }, [game]);
 
