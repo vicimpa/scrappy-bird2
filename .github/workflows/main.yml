@@ -23,8 +23,10 @@ jobs:
         run: |
           npm run build
           
-      - name: Publish
-        run: |
-          git config --global user.email "vicimpa@ya.ru"
-          git config --global user.name "PromiSe####"
-          npm run deploy
+      - name: Deploy
+        uses: crazy-max/ghaction-github-pages@v1
+        with:
+          target_branch: gh-pages 
+          build_dir: build
+        env:
+          GITHUB TOKEN: ${{ secrets.ACCESS_TOKEN }}
