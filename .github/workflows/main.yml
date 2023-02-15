@@ -25,4 +25,6 @@ jobs:
           
       - name: Publish
         run: |
+          git config --global user.email "vicimpa@ya.ru"
+          git config --global user.name "PromiSe####"
           npm run deploy
