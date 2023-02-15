@@ -1,4 +1,4 @@
 {
-  "outDir": "dist",
+  "outDir": "build",
   "isPWA": true
 }

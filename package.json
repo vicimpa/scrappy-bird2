@@ -4,12 +4,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && node postBuild.js",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
     "@vitejs/plugin-react": "^1.0.7",
+    "gh-pages": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rollup-plugin-html-minifier": "^2.0.0",
