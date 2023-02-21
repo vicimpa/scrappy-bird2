@@ -11,7 +11,7 @@ interface IVolumeButton {
 export const VolumeButton: FC<IVolumeButton> = ({
   onClick = () => null
 }) => {
-  const scale = useScale();
+  const scale = useScale() * .5;
   const volume = state.use();
 
   let className = 'mute2';
@@ -29,7 +29,9 @@ export const VolumeButton: FC<IVolumeButton> = ({
 
   return (
     <i
-      style={{} as any}
+      style={{
+        transform: `matrix(${scale}, 0, 0, ${scale}, ${scale * -10}, ${scale * 10})`
+      } as any}
       onMouseDown={click}
       className={`volume-btn icon-volume-${className}`} />
   );
