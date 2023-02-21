@@ -8,8 +8,6 @@ interface MyCan extends HTMLCanvasElement {
 export class Display extends Component {
   #fakeCan: MyCan = document.createElement('canvas');
   #can = createRef<MyCan>();
-  #top = createRef<MyCan>();
-  #bottom = createRef<MyCan>();
 
   get can(): MyCan {
     this.#fakeCan.width = this.game.width;
@@ -31,7 +29,6 @@ export class Display extends Component {
       <>
         <canvas
           className="main"
-          onMouseDown={this.game.click}
           width={this.game.width * scale}
           height={this.game.height * scale}
           ref={this.#can} />

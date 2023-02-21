@@ -8,7 +8,7 @@ import { isPWA, outDir } from "./config.json";
 
 export default defineConfig({
   publicDir: isPWA ? './public' : 'myFakeDir',
-  base: './',
+  base: isPWA ? './' : '/scrappy-bird2/',
   build: {
     outDir,
     emptyOutDir: true,

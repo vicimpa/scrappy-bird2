@@ -29,9 +29,7 @@ export const VolumeButton: FC<IVolumeButton> = ({
 
   return (
     <i
-      style={{
-        transform: `matrix(${scale - 2}, 0, 0, ${scale - 2}, ${-14 * (scale - 2)}, ${14 * (scale - 2)})`
-      } as any}
+      style={{} as any}
       onMouseDown={click}
       className={`volume-btn icon-volume-${className}`} />
   );
@@ -69,7 +67,7 @@ export const VolumeComponent = forwardRef<HTMLDivElement, IVolumeProps>((props, 
     <div
       onMouseDown={down}
       onTouchStart={down}
-      style={{ ['--zoom']: 2, transform: `scale${scale}` } as any}
+      style={{ ['--zoom']: 2, transform: `scale(${scale * .4})` } as any}
       data-show={show}
       className="volume"
     >
