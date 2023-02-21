@@ -30,4 +30,3 @@ if (isPWA && location.protocol == 'https:') {
     ).matches;
   });
 }
-
