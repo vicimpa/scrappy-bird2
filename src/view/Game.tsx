@@ -100,6 +100,7 @@ export const GameComponent = () => {
           <button onClick={game.reset}>Restart (Enter)</button>
           <button onClick={game.github}>Github</button>
         </EndComponent>
+
         <VolumeComponent
           ref={volumeRef}
           onOutsideClick={() => setShowVolume(false)}

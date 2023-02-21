@@ -8,8 +8,6 @@ interface MyCan extends HTMLCanvasElement {
 export class Display extends Component {
   #fakeCan: MyCan = document.createElement('canvas');
   #can = createRef<MyCan>();
-  #top = createRef<MyCan>();
-  #bottom = createRef<MyCan>();
 
   get can(): MyCan {
     this.#fakeCan.width = this.game.width;
