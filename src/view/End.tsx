@@ -8,7 +8,7 @@ type IEndProps = PropsWithChildren<{
   hiscore?: number;
 }>;
 
-export const EndComponent = forwardRef<HTMLElement, IEndProps>((props, ref) => {
+export const EndComponent = forwardRef<HTMLDivElement, IEndProps>((props, ref) => {
   const scale = useScale();
   const {
     show = false,
@@ -32,6 +32,28 @@ export const EndComponent = forwardRef<HTMLElement, IEndProps>((props, ref) => {
     const d = setInterval(c, 100); c();
     return () => clearInterval(d);
   });
+
+  useEffect(() => {
+    const r = ref as RefObject<HTMLDivElement>;
+
+    const end = () => {
+      console.log("End");
+      r.current?.querySelectorAll('button').forEach(el => el.disabled = false);
+    };
+
+    r.current?.addEventListener('transitionend', end);
+
+    return () => {
+      r.current?.removeEventListener('transitionend', end);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!show) return;
+    const r = ref as RefObject<HTMLDivElement>;
+    console.log("Start");
+    r.current?.querySelectorAll('button').forEach(el => el.disabled = true);
+  }, [show]);
 
   return (
     <div
