@@ -1,5 +1,5 @@
 import { Game } from "class/Game";
-import { Component, createRef, useState } from "react";
+import { Component, createRef } from "react";
 
 interface MyCan extends HTMLCanvasElement {
   ctx?: CanvasRenderingContext2D;

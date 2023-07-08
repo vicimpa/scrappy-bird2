@@ -15,11 +15,11 @@ export const GameComponent = () => {
   const [scale, setScale] = useState(getZoom());
   const [showVolume, setShowVolume] = useState(false);
   const { stage, score, hiscore } = useSnapshot(game.state);
-  const scoreRef = useRef<HTMLParagraphElement>();
-  const gameContainer = useRef<HTMLDivElement>();
+  const scoreRef = useRef<HTMLParagraphElement>(null);
+  const gameContainer = useRef<HTMLDivElement>(null);
   const showEnd = stage == 3;
-  const endRef = useRef<HTMLDivElement>();
-  const volumeRef = useRef<HTMLDivElement>();
+  const endRef = useRef<HTMLDivElement>(null);
+  const volumeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     return game.destroy;

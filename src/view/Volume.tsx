@@ -1,7 +1,7 @@
 import { isOutside } from "lib/Outside";
 import { useScale } from "lib/Scale";
 import { Sound, state } from "lib/Sounds";
-import { FC, forwardRef, MouseEventHandler, useEffect, useRef, useState } from "react";
+import { FC, forwardRef, MouseEventHandler } from "react";
 
 
 interface IVolumeButton {
