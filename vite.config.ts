@@ -9,6 +9,10 @@ import { isPWA, outDir } from "./config.json";
 export default defineConfig({
   publicDir: isPWA ? './public' : 'myFakeDir',
   base: isPWA ? './' : '/scrappy-bird2/',
+  server: {
+    host: '0.0.0.0',
+    port: 3000
+  },
   build: {
     outDir,
     emptyOutDir: true,
