@@ -21,7 +21,7 @@ export class Bird extends Entity {
   sX = 20;
   sY = 100;
 
-  auto = true;
+  auto = false;
 
   width = bird.width;
   height = bird.height;
