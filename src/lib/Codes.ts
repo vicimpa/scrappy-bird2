@@ -19,6 +19,7 @@ export class CodeEngine {
         max = code.length;
 
     this._input = this._input.slice(-max);
+    console.log(this._input);
 
     for (const code of codes) {
       if (this._input.includes(code)) {

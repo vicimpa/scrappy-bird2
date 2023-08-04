@@ -173,7 +173,7 @@ export class Game {
     }
 
     this.bird.update(delta, time);
-    // this.bird.circle.update(delta, time);
+    this.bird.circle.update(delta, time);
     this.debug.update(delta, time);
     this.start.update(delta, time);
     this.score.update(delta, time);
@@ -203,7 +203,7 @@ export class Game {
     }
 
     this.bird.render(display);
-    // this.bird.circle.render(display);
+    this.bird.circle.render(display);
     this.debug.render(display);
     this.start.render(display);
     this.score.render(display);

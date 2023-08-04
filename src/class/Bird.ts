@@ -21,7 +21,7 @@ export class Bird extends Entity {
   sX = 20;
   sY = 100;
 
-  auto = false;
+  auto = true;
 
   width = bird.width;
   height = bird.height;
@@ -87,7 +87,11 @@ export class Bird extends Entity {
         this.upFly = this.upFlyNeed;
     }
 
-    this.circle.x = this.x;
+    if (!this.auto) {
+      this.circle.x = -10;
+      this.circle.y = -10;
+    }
+
 
     if (stage < 2)
       this.frame = (abs(time % (upFly * frames * 2) - upFly * frames) / upFly) | 0;
@@ -110,14 +114,14 @@ export class Bird extends Entity {
         if (obj.x + obj.width < this.x)
           continue;
 
-
+        this.circle.x = this.x;
         this.circle.y = Math.min(
           obj.y + obj.door + (obj.x > this.x + this.width ? obj.x - this.x - 15 : 0),
           game.height - 60
         );
 
         if (
-          (this.speed > this.minSpeed + 5 && this.circle.y < this.y + this.height)
+          (this.speed > this.minSpeed + 3 && this.circle.y < this.y + this.height)
         ) {
           this.click();
         }
