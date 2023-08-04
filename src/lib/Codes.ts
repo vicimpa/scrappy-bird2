@@ -8,7 +8,7 @@ export class CodeEngine {
     e.preventDefault();
 
     if (e.key.length == 1)
-      this._input += e.key;
+      this._input += /^Key/.test(e.code) ? e.code.slice(-1).toLocaleLowerCase() : '';
 
     const codes = [...this._codes.keys()];
 
