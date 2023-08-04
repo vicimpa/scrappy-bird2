@@ -4,6 +4,7 @@ import { Sound } from "lib/Sounds";
 import { rand } from "lib/Utils";
 import { Display } from "view/Display";
 
+import { Circle } from "./Circle";
 import { Entity } from "./Entity";
 
 const { abs } = Math;
@@ -15,10 +16,12 @@ export class Bird extends Entity {
   image!: HTMLImageElement;
   ready = false;
 
+  circle = new Circle(this.game);
+
   sX = 20;
   sY = 100;
 
-  auto = false;
+  auto = true;
 
   width = bird.width;
   height = bird.height;
@@ -84,6 +87,8 @@ export class Bird extends Entity {
         this.upFly = this.upFlyNeed;
     }
 
+    this.circle.x = this.x;
+
     if (stage < 2)
       this.frame = (abs(time % (upFly * frames * 2) - upFly * frames) / upFly) | 0;
 
@@ -105,10 +110,14 @@ export class Bird extends Entity {
         if (obj.x + obj.width < this.x)
           continue;
 
+
+        this.circle.y = Math.min(
+          obj.y + obj.door + (obj.x > this.x + this.width ? obj.x - this.x - 15 : 0),
+          game.height - 60
+        );
+
         if (
-          (this.speed > this.minSpeed + 3 &&
-            obj.y + obj.door < this.y + this.height + 2) ||
-          this.y > game.height - 80
+          (this.speed > this.minSpeed + 5 && this.circle.y < this.y + this.height)
         ) {
           this.click();
         }
