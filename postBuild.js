@@ -10,6 +10,9 @@ minify(fileData.replace(/\/\*([^\/]+)\*\//gsm, ''), {
   removeComments: true,
   removeTagWhitespace: true,
   noNewlinesBeforeTagClose: true,
+  collapseWhitespace: true,
+  minifyCSS: true,
+  minifyJS: true,
 })
   .then(output => {
     writeFileSync(join(outDir, 'index.html'), output);
