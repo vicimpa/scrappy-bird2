@@ -1,15 +1,11 @@
-import "index.sass";
-
 import { createDOM } from "lib/Utils";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { GameComponent } from "view/Game";
 
-import { isPWA } from "../config.json";
+createRoot(document.getElementById('app')!)
+  .render(<GameComponent />);
 
-const app = document.getElementById('app');
-render(<GameComponent />, app);
-
-if (isPWA && location.protocol == 'https:') {
+if (location.protocol == 'https:') {
   const appendTo = document.head;
 
   createDOM('link', { rel: 'manifest', href: './manifest.json', appendTo });

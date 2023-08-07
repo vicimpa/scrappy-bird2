@@ -1,39 +1,31 @@
-import react from "@vitejs/plugin-react";
-import htmlMinifier from "rollup-plugin-html-minifier";
+import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 import paths from "vite-tsconfig-paths";
 
-import { isPWA, outDir } from "./config.json";
-
 export default defineConfig({
-  publicDir: isPWA ? './public' : 'myFakeDir',
-  base: isPWA ? './' : '/scrappy-bird2/',
+  base: './',
   server: {
     host: '0.0.0.0',
     port: 3000
   },
+  publicDir: '../public',
+  root: './src',
   build: {
-    outDir,
+    outDir: '../build',
     emptyOutDir: true,
+    minify: true,
+    cssMinify: true,
     assetsInlineLimit: 10000000000,
     rollupOptions: {
-      plugins: [
-        htmlMinifier({
-          options: {
-            collapseWhitespace: true,
-            removeComments: true
-          }
-        })
-      ],
       output: {
         manualChunks: undefined,
       },
     },
   },
   plugins: [
-    react(),
-    paths(),
+    react({ plugins: [], tsDecorators: true }),
+    paths({ projects: ["../tsconfig.json"] }),
     viteSingleFile()
   ]
 });
